@@ -90,7 +90,6 @@
         <div class="section" id="section2" style="display: none;">
             <h1>注意</h1>
             <p>必须点击确认才能进行下一步</p>
-            <p>const checkbox = document.getElementById(`confirm${i}`)</p>
             <div class="checkbox-container">
                 <input type="checkbox" id="confirm1"> <label for="confirm1">已确认</label>
             </div>
@@ -188,7 +187,7 @@
             nextButton.disabled = !checkbox.checked;
         }
 
-        // 添加监听器，确认框选中时启用下一页按钮
+        // 为每个页面的复选框添加监听器，确认框选中时启用下一页按钮
         for (let i = 1; i <= 8; i++) {
             const checkbox = document.getElementById(`confirm${i}`);
             checkbox.addEventListener("change", () => enableNextButton(i));
