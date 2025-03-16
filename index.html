@@ -90,26 +90,26 @@
     <div class="container" id="container">
         <div class="section" id="section1">
             <h1>祝李老师毕业快乐！🎓🎉</h1>
-            <p>From甘弦朋 邓杰</p>
+            <p>From 甘弦朋 邓杰</p>
             <button onclick="nextSlide()">下一页</button>
         </div>
         
         <div class="section" id="section2" style="display: none;">
             <h1>注意</h1>
-            <p>点击“已确认”方可继续下一页面</p>
-            <p>点击“已确认”即表示您同意并理解上述内容</p>
+            <p>点击“已确认”方可进行下一步</p>
+            <p>点击“已确认”表示您同意以上内容</p>
             <div class="checkbox-container">
                 <input type="checkbox" id="confirm1" onchange="enableNextButton(1)"> <label for="confirm1">已确认</label>
             </div>
             <button onclick="nextSlide()" id="nextButton1" disabled>下一页</button>
         </div>
 
-        <!-- 验证页面 -->
+        <!-- 密码验证页面 -->
         <div class="section" id="section3" style="display: none;">
-            <h1>密钥验证</h1>
-            <p>请输入密钥以继续：</p>
+            <h1>请输入密码</h1>
+            <p>请输入正确密码以继续：</p>
             <div class="input-container">
-                <input type="text" id="captchaInput" placeholder="输入libinrui" oninput="validateCaptcha()">
+                <input type="password" id="passwordInput" placeholder="输入密码" oninput="validatePassword()">
             </div>
             <button onclick="nextSlide()" id="nextButton2" disabled>下一页</button>
         </div>
@@ -119,7 +119,7 @@
             <p>声乐部门公认的唱歌第一</p>
             <p>钢琴部门弹钢琴第一</p>
             <p>学校里学习第一</p>
-            <p>体育第一</p>
+            <p>体育体能第一</p>
             <p>吃饭第一</p>
             <div class="checkbox-container">
                 <input type="checkbox" id="confirm2" onchange="enableNextButton(2)"> <label for="confirm2">已确认</label>
@@ -128,9 +128,9 @@
         </div>
 
         <div class="section" id="section5" style="display: none;">
-            <h1>@GAN想说的话</h1>
-            <p>想说的话放这里 禁用http循环！</p>
-            <div class="checkbox-container">
+            <h1>GAN说点话</h1>
+            <p>ABCD ABCD 禁用http循环！</p>
+           <div class="checkbox-container">
                 <input type="checkbox" id="confirm3" onchange="enableNextButton(3)"> <label for="confirm3">已确认</label>
             </div>
             <button onclick="nextSlide()" id="nextButton4" disabled>下一页</button>
@@ -138,16 +138,16 @@
 
         <!-- 新增页面 -->
         <div class="section" id="section6" style="display: none;">
-            <h1>@DENG想说的话</h1>
-            <p>想说的话放这里 禁用http循环！</p>
+            <h1>DENG说点话</h1>
+            <p>ASDFGH 禁用http循环！</p>
             <button onclick="nextSlide()">下一页</button>
         </div>
 
         <!-- 图片展示页面 -->
         <div class="section" id="section7" style="display: none;">
             <h1>特别瞬间</h1>
-            <p>这张真的好看！📷拍摄者@GAN</p>
-            <p>图片加载失败就刷新或者更换网络环境</p>
+            <p>这张很好看！📷摄影师@GAN</p>
+            <p>图片加载失败就刷新或更换网络环境</p>
             <img src="7444be2a3315b3ec849c7e19b569863.jpg" alt="庆祝照片">
             <button onclick="nextSlide()">下一页</button>
         </div>
@@ -192,10 +192,10 @@
             }
         }
 
-        function validateCaptcha() {
-            const inputField = document.getElementById("captchaInput");
+        function validatePassword() {
+            const inputField = document.getElementById("passwordInput");
             const nextButton = document.getElementById("nextButton2");
-            nextButton.disabled = inputField.value.trim().toLowerCase() !== "libinrui";
+            nextButton.disabled = inputField.value.trim() !== "libinrui";
         }
     </script>
 </body>
