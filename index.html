@@ -160,11 +160,11 @@
         </div>
 
         <div class="section" id="section8" style="display: none;">
-            <h1>祝李老师未来一切顺利！</h1>
-            <p>再次祝您毕业快乐，未来可期！🎉</p>
-            <button onclick="goToHome()">回到首页</button>
-        </div>
-    </div>
+    <h1>祝李老师未来一切顺利！</h1>
+    <p>再次祝您毕业快乐，未来可期！🎉</p>
+    <button onclick="goToHome()">回到首页</button>
+    <canvas id="fireworksCanvas"></canvas>
+</div>
 
     <div class="footer">
         © 2025 全部运行代码由 GAN 设计与开发
@@ -174,10 +174,10 @@
         let currentSection = 1;
 
         function nextSlide() {
-            document.getElementById(`section${currentSection}`).style.display = "none";
-            currentSection++;
-            document.getElementById(`section${currentSection}`).style.display = "flex";
-            window.scrollTo(0, 0);
+    document.getElementById(`section${currentSection}`).style.display = "none";
+    currentSection++;
+    document.getElementById(`section${currentSection}`).style.display = "flex";
+    window.scrollTo(0, 0);
         }
 
         function goToHome() {
