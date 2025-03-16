@@ -98,7 +98,8 @@
             <h1>注意</h1>
             <p>点击“已确认”方可进行下一步</p>
             <div class="checkbox-container">
-                <input type="checkbox" id="confirm1" onchange="enableNextButton(1)"> <label for="confirm1">已确认</label>
+                <input type="checkbox" id="confirm1" onchange="enableNextButton('confirm1', 'nextButton1')"> 
+                <label for="confirm1">已确认</label>
             </div>
             <button onclick="nextSlide()" id="nextButton1" disabled>下一页</button>
         </div>
@@ -119,7 +120,8 @@
             <p>钢琴部门弹钢琴第一</p>
             <p>体育体能第一</p>
             <div class="checkbox-container">
-                <input type="checkbox" id="confirm2" onchange="enableNextButton(2)"> <label for="confirm2">已确认</label>
+                <input type="checkbox" id="confirm2" onchange="enableNextButton('confirm2', 'nextButton3')"> 
+                <label for="confirm2">已确认</label>
             </div>
             <button onclick="nextSlide()" id="nextButton3" disabled>下一页</button>
         </div>
@@ -128,7 +130,8 @@
             <h1>GAN说点话</h1>
             <p>ABCD ABCD 禁用http循环！</p>
            <div class="checkbox-container">
-                <input type="checkbox" id="confirm3" onchange="enableNextButton(3)"> <label for="confirm3">已确认</label>
+                <input type="checkbox" id="confirm3" onchange="enableNextButton('confirm3', 'nextButton4')"> 
+                <label for="confirm3">已确认</label>
             </div>
             <button onclick="nextSlide()" id="nextButton4" disabled>下一页</button>
         </div>
@@ -176,8 +179,8 @@
             window.scrollTo(0, 0);
         }
 
-        function enableNextButton(sectionNumber) {
-            document.getElementById(`nextButton${sectionNumber}`).disabled = !document.getElementById(`confirm${sectionNumber}`).checked;
+        function enableNextButton(checkboxId, buttonId) {
+            document.getElementById(buttonId).disabled = !document.getElementById(checkboxId).checked;
         }
 
         function validatePassword() {
