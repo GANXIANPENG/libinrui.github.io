@@ -151,7 +151,7 @@
             <button onclick="nextSlide()" id="nextButton8" disabled>下一页</button>
         </div>
         <div class="section" id="section9" style="display: none;">
-            <h1>祝李老师未来一切顺利！</h1>
+             <h1>祝李老师未来一切顺利！</h1>
             <p>再次祝您毕业快乐，未来可期！🎉</p>
             <div class="checkbox-container">
                 <input type="checkbox" id="confirm8"> <label for="confirm8">已确认</label>
@@ -187,11 +187,14 @@
             nextButton.disabled = !checkbox.checked;
         }
 
-        // 为每个页面的复选框添加监听器，确认框选中时启用下一页按钮
-        for (let i = 1; i <= 8; i++) {
-            const checkbox = document.getElementById(`confirm${i}`);
-            checkbox.addEventListener("change", () => enableNextButton(i));
-        }
+        // 页面加载时确保每个复选框的按钮是否需要启用
+        window.onload = () => {
+            for (let i = 1; i <= 8; i++) {
+                enableNextButton(i);
+                const checkbox = document.getElementById(`confirm${i}`);
+                checkbox.addEventListener("change", () => enableNextButton(i));
+            }
+        };
     </script>
 </body>
 </html>
