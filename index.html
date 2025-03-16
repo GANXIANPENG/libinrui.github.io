@@ -97,7 +97,7 @@
         <div class="section" id="section2" style="display: none;">
             <h1>注意</h1>
             <p>点击“已确认”方可进行下一步</p>
-            <p>点击“已确认”即表明您同意以上内容</p>
+            <p>点击即代表您同意上述内容</p>
             <div class="checkbox-container">
                 <input type="checkbox" id="confirm1" onchange="enableNextButton('confirm1', 'nextButton1')"> 
                 <label for="confirm1">已确认</label>
@@ -120,7 +120,7 @@
             <p>声乐部门公认的唱歌第一</p>
             <p>钢琴部门弹钢琴第一</p>
             <p>体育体能第一</p>
-            <p>学习第一</p>
+            <p>学习成绩第一</p>
             <p>吃饭第一</p>
             <div class="checkbox-container">
                 <input type="checkbox" id="confirm2" onchange="enableNextButton('confirm2', 'nextButton3')"> 
@@ -157,7 +157,7 @@
         <div class="section" id="section8" style="display: none;">
             <h1>祝李老师未来一切顺利！</h1>
             <p>再次祝您毕业快乐，未来可期！🎉</p>
-            <button onclick="prevSlide()">上一页</button>
+            <button onclick="goToHome()">回到首页</button>
         </div>
     </div>
 
@@ -175,9 +175,9 @@
             window.scrollTo(0, 0);
         }
 
-        function prevSlide() {
+        function goToHome() {
             document.getElementById(`section${currentSection}`).style.display = "none";
-            currentSection--;
+            currentSection = 1;
             document.getElementById(`section${currentSection}`).style.display = "flex";
             window.scrollTo(0, 0);
         }
