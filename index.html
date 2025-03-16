@@ -97,7 +97,6 @@
         <div class="section" id="section2" style="display: none;">
             <h1>注意</h1>
             <p>点击“已确认”方可进行下一步</p>
-            <p>点击“已确认”表示您同意以上内容</p>
             <div class="checkbox-container">
                 <input type="checkbox" id="confirm1" onchange="enableNextButton(1)"> <label for="confirm1">已确认</label>
             </div>
@@ -109,7 +108,7 @@
             <h1>请输入密码</h1>
             <p>请输入正确密码以继续：</p>
             <div class="input-container">
-                <input type="password" id="passwordInput" placeholder="输入密码" oninput="validatePassword()">
+                <input type="password" id="passwordInput" placeholder="输入密码" oninput="validatePassword()" onkeypress="handleEnter(event)">
             </div>
             <button onclick="nextSlide()" id="nextButton2" disabled>下一页</button>
         </div>
@@ -118,9 +117,7 @@
             <h1>回忆成就</h1>
             <p>声乐部门公认的唱歌第一</p>
             <p>钢琴部门弹钢琴第一</p>
-            <p>学校里学习第一</p>
             <p>体育体能第一</p>
-            <p>吃饭第一</p>
             <div class="checkbox-container">
                 <input type="checkbox" id="confirm2" onchange="enableNextButton(2)"> <label for="confirm2">已确认</label>
             </div>
@@ -147,7 +144,6 @@
         <div class="section" id="section7" style="display: none;">
             <h1>特别瞬间</h1>
             <p>这张很好看！📷摄影师@GAN</p>
-            <p>图片加载失败就刷新或更换网络环境</p>
             <img src="7444be2a3315b3ec849c7e19b569863.jpg" alt="庆祝照片">
             <button onclick="nextSlide()">下一页</button>
         </div>
@@ -167,35 +163,29 @@
         let currentSection = 1;
 
         function nextSlide() {
-            if (currentSection < 8) {
-                document.getElementById(`section${currentSection}`).style.display = "none";
-                currentSection++;
-                document.getElementById(`section${currentSection}`).style.display = "flex";
-                window.scrollTo(0, 0);
-            }
+            document.getElementById(`section${currentSection}`).style.display = "none";
+            currentSection++;
+            document.getElementById(`section${currentSection}`).style.display = "flex";
+            window.scrollTo(0, 0);
         }
 
         function prevSlide() {
-            if (currentSection > 1) {
-                document.getElementById(`section${currentSection}`).style.display = "none";
-                currentSection--;
-                document.getElementById(`section${currentSection}`).style.display = "flex";
-                window.scrollTo(0, 0);
-            }
+            document.getElementById(`section${currentSection}`).style.display = "none";
+            currentSection--;
+            document.getElementById(`section${currentSection}`).style.display = "flex";
+            window.scrollTo(0, 0);
         }
 
         function enableNextButton(sectionNumber) {
-            const checkbox = document.getElementById(`confirm${sectionNumber}`);
-            const nextButton = document.getElementById(`nextButton${sectionNumber}`);
-            if (checkbox && nextButton) {
-                nextButton.disabled = !checkbox.checked;
-            }
+            document.getElementById(`nextButton${sectionNumber}`).disabled = !document.getElementById(`confirm${sectionNumber}`).checked;
         }
 
         function validatePassword() {
-            const inputField = document.getElementById("passwordInput");
-            const nextButton = document.getElementById("nextButton2");
-            nextButton.disabled = inputField.value.trim() !== "libinrui";
+            document.getElementById("nextButton2").disabled = document.getElementById("passwordInput").value !== "libinrui";
+        }
+
+        function handleEnter(event) {
+            if (event.key === "Enter") validatePassword();
         }
     </script>
 </body>
