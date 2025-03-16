@@ -97,6 +97,7 @@
         <div class="section" id="section2" style="display: none;">
             <h1>注意</h1>
             <p>点击“已确认”方可进行下一步</p>
+            <p>点击“已确认”即表明您同意以上内容</p>
             <div class="checkbox-container">
                 <input type="checkbox" id="confirm1" onchange="enableNextButton('confirm1', 'nextButton1')"> 
                 <label for="confirm1">已确认</label>
@@ -119,6 +120,8 @@
             <p>声乐部门公认的唱歌第一</p>
             <p>钢琴部门弹钢琴第一</p>
             <p>体育体能第一</p>
+            <p>学习第一</p>
+            <p>吃饭第一</p>
             <div class="checkbox-container">
                 <input type="checkbox" id="confirm2" onchange="enableNextButton('confirm2', 'nextButton3')"> 
                 <label for="confirm2">已确认</label>
@@ -184,7 +187,7 @@
         }
 
         function validatePassword() {
-            document.getElementById("nextButton2").disabled = document.getElementById("passwordInput").value !== "libinrui";
+            document.getElementById("nextButton2").disabled = document.getElementById("passwordInput").value !== "04240417";
         }
 
         function handleEnter(event) {
