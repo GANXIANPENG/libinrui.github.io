@@ -200,6 +200,67 @@
 
 
         }
+
+        function startFireworks() {
+            const canvas = document.getElementById("fireworksCanvas");
+            const ctx = canvas.getContext("2d");
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            const particles = [];
+            function Particle(x, y, color) {
+                this.x = x;
+                this.y = y;
+                this.color = color;
+                this.size = Math.random() * 3 + 1;
+                this.speedX = Math.random() * 4 - 2;
+                this.speedY = Math.random() * 4 - 2;
+                this.opacity = 1;
+            }
+            Particle.prototype.update = function() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                this.opacity -= 0.02;
+            };
+            Particle.prototype.draw = function() {
+                ctx.globalAlpha = this.opacity;
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            };
+            function createFirework(x, y) {
+                const colors = ["red", "yellow", "blue", "green", "purple", "orange"];
+                for (let i = 0; i < 50; i++) {
+                    particles.push(new Particle(x, y, colors[Math.floor(Math.random() * colors.length)]));
+                }
+            }
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                for (let i = 0; i < particles.length; i++) {
+                    particles[i].update();
+                    particles[i].draw();
+                    if (particles[i].opacity <= 0) {
+                        particles.splice(i, 1);
+                        i--;
+                    }
+                }
+                requestAnimationFrame(animate);
+            }
+            setInterval(() => {
+                createFirework(Math.random() * canvas.width, Math.random() * canvas.height);
+            }, 500);
+            animate();
+        }
+
+        function nextSlide() {
+            document.getElementById(`section${currentSection}`).style.display = "none";
+            currentSection++;
+            document.getElementById(`section${currentSection}`).style.display = "flex";
+            window.scrollTo(0, 0);
+            if (currentSection === 8) {
+                startFireworks();
+            }
+        }
     </script>
 </body>
 </html>
