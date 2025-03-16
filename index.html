@@ -109,7 +109,7 @@
             <h1>密钥验证</h1>
             <p>请输入密钥以继续：</p>
             <div class="input-container">
-                <input type="text" id="captchaInput" placeholder="输入 libinrui" oninput="validateCaptcha()">
+                <input type="text" id="captchaInput" placeholder="输入libinrui" oninput="validateCaptcha()">
             </div>
             <button onclick="nextSlide()" id="nextButton2" disabled>下一页</button>
         </div>
@@ -195,7 +195,7 @@
         function validateCaptcha() {
             const inputField = document.getElementById("captchaInput");
             const nextButton = document.getElementById("nextButton2");
-            nextButton.disabled = inputField.value.trim().toLowerCase() !== "linbinrui";
+            nextButton.disabled = inputField.value.trim().toLowerCase() !== "libinrui";
         }
     </script>
 </body>
