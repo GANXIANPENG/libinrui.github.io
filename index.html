@@ -54,11 +54,14 @@
             background-color: #2193b0;
             color: white;
         }
-        .nav-buttons {
+        .footer {
             position: fixed;
-            bottom: 20px;
-            display: flex;
-            gap: 10px;
+            bottom: 10px;
+            width: 100%;
+            text-align: center;
+            color: white;
+            font-size: 14px;
+            opacity: 0.8;
         }
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(-20px); }
@@ -70,12 +73,12 @@
     <div class="container" id="container">
         <div class="section" id="section1">
             <h1>祝李老师毕业快乐！🎓🎉</h1>
-            <p>愿你的未来充满光明与成功！✨</p>
+            <p>愿您的未来充满光明与成功！By邓杰 甘弦朋 ✨</p>
             <button onclick="nextSlide()">下一页</button>
         </div>
         <div class="section" id="section2" style="display: none;">
             <h1>祝福语</h1>
-            <p>反正就快乐就完了🚀</p>
+            <p>让我想一下🚀</p>
             <button onclick="prevSlide()">上一页</button>
             <button onclick="nextSlide()">下一页</button>
         </div>
@@ -84,6 +87,9 @@
             <p>没事不联系📩</p>
             <button onclick="prevSlide()">上一页</button>
         </div>
+    </div>
+    <div class="footer">
+        © 2025 全部运行代码由 @GAN 设计与开发
     </div>
     <script>
         let currentSection = 1;
