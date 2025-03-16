@@ -11,7 +11,6 @@
             background: linear-gradient(to right, #6dd5ed, #2193b0);
             height: 100vh;
             overflow: hidden;
-            position: relative;
         }
         .container {
             width: 100vw;
@@ -20,23 +19,27 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            position: relative;
-            z-index: 2;
         }
         .section {
             width: 100vw;
             height: 100vh;
-            display: none;
+            display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             color: white;
-            opacity: 0;
-            transition: opacity 1s ease-in-out;
         }
-        .section:first-child {
-            display: flex;
-            opacity: 1;
+
+
+
+        h1 {
+            font-size: 50px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 2s ease-in-out;
+        }
+        p {
+            font-size: 20px;
+            opacity: 0.9;
         }
         button {
             margin-top: 20px;
@@ -47,121 +50,153 @@
             background-color: white;
             color: #2193b0;
             cursor: pointer;
-            transition: transform 0.3s, background-color 0.3s;
+            transition: 0.3s;
         }
-        button:hover {
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        button:hover:not(:disabled) {
             background-color: #2193b0;
             color: white;
-            transform: scale(1.1);
-        }
-        @keyframes fireworks {
-            0% { opacity: 1; transform: translateY(0) scale(1); }
-            100% { opacity: 0; transform: translateY(-100px) scale(2); }
-        }
-        .firework {
-            position: absolute;
-            width: 5px;
-            height: 5px;
-            background: white;
-            border-radius: 50%;
-            animation: fireworks 1s linear infinite;
         }
         .footer {
-            position: absolute;
+            position: fixed;
             bottom: 10px;
             width: 100%;
             text-align: center;
             color: white;
             font-size: 14px;
+            opacity: 0.8;
+        }
+        .checkbox-container, .input-container {
+            margin-top: 20px;
+        }
+        .input-container input {
+            padding: 8px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        img {
+            width: 50%;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="container" id="container">
         <div class="section" id="section1">
             <h1>祝李老师毕业快乐！🎓🎉</h1>
             <p>From 甘弦朋 邓杰</p>
             <button onclick="nextSlide()">下一页</button>
         </div>
-        
-        <div class="section" id="section2">
+
+        <div class="section" id="section2" style="display: none;">
             <h1>注意</h1>
             <p>点击“已确认”方可进行下一步</p>
-            <input type="checkbox" id="confirm1" onchange="enableNextButton('confirm1', 'nextButton1')"> <label for="confirm1">已确认</label>
-            <button id="nextButton1" onclick="nextSlide()" disabled>下一页</button>
+            <p>点击即代表您同意上述内容</p>
+            <div class="checkbox-container">
+                <input type="checkbox" id="confirm1" onchange="enableNextButton('confirm1', 'nextButton1')"> 
+                <label for="confirm1">已确认</label>
+            </div>
+            <button onclick="nextSlide()" id="nextButton1" disabled>下一页</button>
         </div>
 
-        <div class="section" id="section3">
+        <!-- 密码验证页面 -->
+        <div class="section" id="section3" style="display: none;">
             <h1>请输入密码</h1>
-            <input type="password" id="passwordInput" placeholder="输入密码" oninput="validatePassword()" onkeypress="handleEnter(event)">
-            <button id="nextButton2" onclick="nextSlide()" disabled>下一页</button>
+            <p>请输入正确密码以继续：</p>
+            <div class="input-container">
+                <input type="password" id="passwordInput" placeholder="输入密码" oninput="validatePassword()" onkeypress="handleEnter(event)">
+            </div>
+            <button onclick="nextSlide()" id="nextButton2" disabled>下一页</button>
         </div>
 
-        <div class="section" id="section4">
+        <div class="section" id="section4" style="display: none;">
             <h1>回忆成就</h1>
-            <p>声乐第一！</p>
-            <p>钢琴第一！</p>
-            <p>学习第一！</p>
-            <p>体育第一！</p>
-            <p>吃饭第一！</p>
-            <input type="checkbox" id="confirm2" onchange="enableNextButton('confirm2', 'nextButton3')"> <label for="confirm2">已确认</label>
-            <button id="nextButton3" onclick="nextSlide()" disabled>下一页</button>
+            <p>声乐部门公认的唱歌第一</p>
+            <p>钢琴部门弹钢琴第一</p>
+            <p>体育体能第一</p>
+            <p>学习成绩第一</p>
+            <p>吃饭第一</p>
+            <div class="checkbox-container">
+                <input type="checkbox" id="confirm2" onchange="enableNextButton('confirm2', 'nextButton3')"> 
+                <label for="confirm2">已确认</label>
+            </div>
+            <button onclick="nextSlide()" id="nextButton3" disabled>下一页</button>
         </div>
 
-        <div class="section" id="section5">
+        <div class="section" id="section5" style="display: none;">
             <h1>GAN说点话</h1>
             <p>ABCD ABCD 禁用http循环！</p>
-            <input type="checkbox" id="confirm3" onchange="enableNextButton('confirm3', 'nextButton4')"> <label for="confirm3">已确认</label>
-            <button id="nextButton4" onclick="nextSlide()" disabled>下一页</button>
+           <div class="checkbox-container">
+                <input type="checkbox" id="confirm3" onchange="enableNextButton('confirm3', 'nextButton4')"> 
+                <label for="confirm3">已确认</label>
+            </div>
+            <button onclick="nextSlide()" id="nextButton4" disabled>下一页</button>
         </div>
 
-        <div class="section" id="section6">
+        <!-- 新增页面 -->
+        <div class="section" id="section6" style="display: none;">
             <h1>DENG说点话</h1>
             <p>ASDFGH 禁用http循环！</p>
             <button onclick="nextSlide()">下一页</button>
         </div>
 
-        <div class="section" id="section7">
+        <!-- 图片展示页面 -->
+        <div class="section" id="section7" style="display: none;">
             <h1>特别瞬间</h1>
             <p>这张很好看！📷摄影师@GAN</p>
             <img src="7444be2a3315b3ec849c7e19b569863.jpg" alt="庆祝照片">
             <button onclick="nextSlide()">下一页</button>
         </div>
 
-        <div class="section" id="section8">
+        <div class="section" id="section8" style="display: none;">
             <h1>祝李老师未来一切顺利！</h1>
             <p>再次祝您毕业快乐，未来可期！🎉</p>
-            <button onclick="startFireworks()">🎆 燃放烟花</button>
             <button onclick="goToHome()">回到首页</button>
         </div>
     </div>
-    <div class="footer">代码版权归 GAN 所有</div>
+
+    <div class="footer">
+        © 2025 全部运行代码由 GAN 设计与开发
+    </div>
 
     <script>
         let currentSection = 1;
+
         function nextSlide() {
-            document.getElementById(`section${currentSection}`).style.opacity = "0";
-            setTimeout(() => {
-                document.getElementById(`section${currentSection}`).style.display = "none";
-                currentSection++;
-                document.getElementById(`section${currentSection}`).style.display = "flex";
-                setTimeout(() => {
-                    document.getElementById(`section${currentSection}`).style.opacity = "1";
-                }, 100);
-            }, 1000);
+            document.getElementById(`section${currentSection}`).style.display = "none";
+            currentSection++;
+            document.getElementById(`section${currentSection}`).style.display = "flex";
+            window.scrollTo(0, 0);
         }
+
+        function goToHome() {
+            document.getElementById(`section${currentSection}`).style.display = "none";
+            currentSection = 1;
+            document.getElementById(`section${currentSection}`).style.display = "flex";
+            window.scrollTo(0, 0);
+        }
+
         function enableNextButton(checkboxId, buttonId) {
             document.getElementById(buttonId).disabled = !document.getElementById(checkboxId).checked;
         }
-        function startFireworks() {
-            for (let i = 0; i < 20; i++) {
-                let firework = document.createElement("div");
-                firework.className = "firework";
-                document.body.appendChild(firework);
-                firework.style.left = Math.random() * window.innerWidth + "px";
-                firework.style.top = Math.random() * window.innerHeight + "px";
-                setTimeout(() => firework.remove(), 1000);
-            }
+
+        function validatePassword() {
+            document.getElementById("nextButton2").disabled = document.getElementById("passwordInput").value !== "04240417";
+        }
+
+        function handleEnter(event) {
+            if (event.key === "Enter") validatePassword();
+
+
         }
     </script>
 </body>
