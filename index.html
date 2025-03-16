@@ -84,22 +84,24 @@
     <div class="container" id="container">
         <div class="section" id="section1">
             <h1>祝李老师毕业快乐！🎓🎉</h1>
-            <p>BY DJ and GAN</p>
+            <p>From GAN and DENG</p>
             <button onclick="nextSlide()">下一页</button>
         </div>
         <div class="section" id="section2" style="display: none;">
-            <h1>阅读每个页面的文字勾选确认</h1>
-            <p>家人闲坐，灯火可亲。</p>
+            <h1>注意</h1>
+            <p>必须点击确认才能进行下一步</p>
+            <p>const checkbox = document.getElementById(`confirm${i}`)</p>
             <div class="checkbox-container">
                 <input type="checkbox" id="confirm1"> <label for="confirm1">已确认</label>
             </div>
             <button onclick="nextSlide()" id="nextButton2" disabled>下一页</button>
         </div>
         <div class="section" id="section3" style="display: none;">
-            <h1>>回忆你的成就</h1>
+            <h1>回忆你的成就</h1>
             <p>声乐部门唱歌第一</p>
             <p>钢琴部门弹琴第一</p>
             <p>学习第一</p>
+            <p>体育第一</p>
             <p>吃饭第一</p>
             <p>...第一</p>
             <div class="checkbox-container">
@@ -108,8 +110,8 @@
             <button onclick="nextSlide()" id="nextButton3" disabled>下一页</button>
         </div>
         <div class="section" id="section4" style="display: none;">
-            <h1>GAN先说点话</h1>
-            <p>GAN说的话放这 ABCDE</p>
+            <h1>@GAN我先说点话</h1>
+            <p>想想说什么 3行加2控制符号 不加http</p>
             <div class="checkbox-container">
                 <input type="checkbox" id="confirm3"> <label for="confirm3">已确认</label>
             </div>
@@ -117,7 +119,8 @@
         </div>
         <div class="section" id="section5" style="display: none;">
             <h1>特别瞬间</h1>
-            <p>这张真的好看！拍摄者@GAN📷</p>
+            <p>这张真的好看！📷拍摄者@甘</p>
+            <p>图片加载失败就刷新或更换网络环境</p>
             <img src="7444be2a3315b3ec849c7e19b569863.jpg" alt="庆祝照片">
             <div class="checkbox-container">
                 <input type="checkbox" id="confirm4"> <label for="confirm4">已确认</label>
@@ -125,16 +128,16 @@
             <button onclick="nextSlide()" id="nextButton5" disabled>下一页</button>
         </div>
         <div class="section" id="section6" style="display: none;">
-            <h1>A部分</h1>
-            <p>A部分文字</p>
+            <h1>@DENG要说的话</h1>
+            <p>邓杰的话放这里 3行加2控制符号不加http</p>
             <div class="checkbox-container">
                 <input type="checkbox" id="confirm5"> <label for="confirm5">已确认</label>
             </div>
             <button onclick="nextSlide()" id="nextButton6" disabled>下一页</button>
         </div>
         <div class="section" id="section7" style="display: none;">
-            <h1>DJ要说点话</h1>
-            <p>DJ要说的话 ABCDE</p>
+            <h1>A部分</h1>
+            <p>A部分的文字</p>
             <div class="checkbox-container">
                 <input type="checkbox" id="confirm6"> <label for="confirm6">已确认</label>
             </div>
@@ -142,25 +145,17 @@
         </div>
         <div class="section" id="section8" style="display: none;">
             <h1>B部分</h1>
-            <p>B部分文字</p>
+            <p>B部分的文字</p>
             <div class="checkbox-container">
                 <input type="checkbox" id="confirm7"> <label for="confirm7">已确认</label>
             </div>
             <button onclick="nextSlide()" id="nextButton8" disabled>下一页</button>
         </div>
         <div class="section" id="section9" style="display: none;">
-            <h1>C部分</h1>
-            <p>C部分文字</p>
+            <h1>祝李老师未来一切顺利！</h1>
+            <p>再次祝您毕业快乐，未来可期！🎉</p>
             <div class="checkbox-container">
                 <input type="checkbox" id="confirm8"> <label for="confirm8">已确认</label>
-            </div>
-            <button onclick="nextSlide()" id="nextButton9" disabled>下一页</button>
-        </div>
-        <div class="section" id="section10" style="display: none;">
-            <h1>祝李老师未来一切顺利！</h1>
-            <p>再次祝毕业快乐，未来可期！🎉</p>
-            <div class="checkbox-container">
-                <input type="checkbox" id="confirm9"> <label for="confirm9">已确认</label>
             </div>
             <button onclick="prevSlide()">上一页</button>
         </div>
@@ -172,7 +167,7 @@
         let currentSection = 1;
 
         function nextSlide() {
-            if (currentSection < 10) {
+            if (currentSection < 9) {
                 document.getElementById(`section${currentSection}`).style.display = "none";
                 currentSection++;
                 document.getElementById(`section${currentSection}`).style.display = "flex";
@@ -194,7 +189,7 @@
         }
 
         // 添加监听器，确认框选中时启用下一页按钮
-        for (let i = 1; i <= 9; i++) {
+        for (let i = 1; i <= 8; i++) {
             const checkbox = document.getElementById(`confirm${i}`);
             checkbox.addEventListener("change", () => enableNextButton(i));
         }
