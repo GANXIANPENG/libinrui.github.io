@@ -135,7 +135,7 @@
             <button onclick="goToHome()">回到首页</button>
         </div>
     </div>
-    <div class="footer">@2025 所有运行代码由 GAN 开发和设计</div>
+    <div class="footer">代码版权归 GAN 所有</div>
 
     <script>
         let currentSection = 1;
@@ -149,6 +149,9 @@
                     document.getElementById(`section${currentSection}`).style.opacity = "1";
                 }, 100);
             }, 1000);
+        }
+        function enableNextButton(checkboxId, buttonId) {
+            document.getElementById(buttonId).disabled = !document.getElementById(checkboxId).checked;
         }
         function startFireworks() {
             for (let i = 0; i < 20; i++) {
