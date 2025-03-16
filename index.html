@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>祝李老师毕业快乐！</title>
+    <title>祝李老师毕业快乐！🎇</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -68,6 +68,12 @@
             border-radius: 10px;
             margin-top: 20px;
         }
+        .checkbox-container {
+            margin-top: 20px;
+        }
+        .checkbox-container input {
+            margin-right: 10px;
+        }
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(-20px); }
             to { opacity: 1; transform: translateY(0); }
@@ -78,45 +84,86 @@
     <div class="container" id="container">
         <div class="section" id="section1">
             <h1>祝李老师毕业快乐！🎓🎉</h1>
-            <p>愿您的未来充满光明与成功！</p>
-            <p>By DJ AND GXP</p>
+            <p>希望你的未来充满光明和成功✨</p>
+            <p>甘弦朋和邓杰永远是大哥的小弟</p>
             <button onclick="nextSlide()">下一页</button>
         </div>
         <div class="section" id="section2" style="display: none;">
             <h1>祝福语</h1>
-            <p>按时吃饭，好好睡觉。</p>
-            <p>家人闲坐，灯火可亲。</p>
-            <button onclick="prevSlide()">上一页</button>
-            <button onclick="nextSlide()">下一页</button>
+            <p>好好吃饭，按时睡觉。吃嘛嘛香🚀</p>
+            <div class="checkbox-container">
+                <input type="checkbox" id="confirm1"> <label for="confirm1">我会的</label>
+            </div>
+            <button onclick="nextSlide()" id="nextButton2" disabled>下一页</button>
         </div>
         <div class="section" id="section3" style="display: none;">
             <h1>成就与回忆</h1>
-            <p>您在学校名列前茅，无可替代，我们永远铭记大哥！📖</p>
-            <p>声乐部门第一</p>
+            <p>李老师在学校作为榜样，我们永远会记住的！📖</p>
+            <p>声乐部门唱歌第一</p>
+            <p>钢琴第一</p>
             <p>吃饭第一</p>
-            <p>体育第一</p>
             <p>学习第一</p>
             <p>...第一</p>
-            <button onclick="prevSlide()">上一页</button>
-            <button onclick="nextSlide()">下一页</button>
+            <div class="checkbox-container">
+                <input type="checkbox" id="confirm2"> <label for="confirm2">我承认</label>
+            </div>
+            <button onclick="nextSlide()" id="nextButton3" disabled>下一页</button>
         </div>
         <div class="section" id="section4" style="display: none;">
-            <h1>寄语未来</h1>
-            <p>还没想好🌍</p>
-            <button onclick="prevSlide()">上一页</button>
-            <button onclick="nextSlide()">下一页</button>
+            <h1>GAN先说点话</h1>
+            <p>GAN说的话🌍</p>
+            <div class="checkbox-container">
+                <input type="checkbox" id="confirm3"> <label for="confirm3">读完了</label>
+            </div>
+            <button onclick="nextSlide()" id="nextButton4" disabled>下一页</button>
         </div>
         <div class="section" id="section5" style="display: none;">
             <h1>特别瞬间</h1>
             <p>真的好看！拍摄者@GAN📷</p>
-            <p>照片未显示的话切换网络或者重新刷新</p>
             <img src="7444be2a3315b3ec849c7e19b569863.jpg" alt="庆祝照片">
-            <button onclick="prevSlide()">上一页</button>
-            <button onclick="nextSlide()">下一页</button>
+            <div class="checkbox-container">
+                <input type="checkbox" id="confirm4"> <label for="confirm4">我也觉得好看</label>
+            </div>
+            <button onclick="nextSlide()" id="nextButton5" disabled>下一页</button>
         </div>
         <div class="section" id="section6" style="display: none;">
-            <h1>联系我们</h1>
-            <p>没事就不联系了，记得好好吃饭📩</p>
+            <h1>DJ也要说话</h1>
+            <p>DJ说的话❤️</p>
+            <div class="checkbox-container">
+                <input type="checkbox" id="confirm5"> <label for="confirm5">读完了</label>
+            </div>
+            <button onclick="nextSlide()" id="nextButton6" disabled>下一页</button>
+        </div>
+        <div class="section" id="section7" style="display: none;">
+            <h1>A部分计划</h1>
+            <p>A部分计划想说的内容</p>
+            <div class="checkbox-container">
+                <input type="checkbox" id="confirm6"> <label for="confirm6">已确认</label>
+            </div>
+            <button onclick="nextSlide()" id="nextButton7" disabled>下一页</button>
+        </div>
+        <div class="section" id="section8" style="display: none;">
+            <h1>B部分计划</h1>
+            <p>B部分想说的内容🤝</p>
+            <div class="checkbox-container">
+                <input type="checkbox" id="confirm7"> <label for="confirm7">已确认</label>
+            </div>
+            <button onclick="nextSlide()" id="nextButton8" disabled>下一页</button>
+        </div>
+        <div class="section" id="section9" style="display: none;">
+            <h1>C部分计划</h1>
+            <p>C部分想说的内容🌱</p>
+            <div class="checkbox-container">
+                <input type="checkbox" id="confirm8"> <label for="confirm8">已确认</label>
+            </div>
+            <button onclick="nextSlide()" id="nextButton9" disabled>下一页</button>
+        </div>
+        <div class="section" id="section10" style="display: none;">
+            <h1>祝李老师未来一切顺利！</h1>
+            <p>再次祝您毕业快乐，未来可期！🎉</p>
+            <div class="checkbox-container">
+                <input type="checkbox" id="confirm9"> <label for="confirm9">已确认</label>
+            </div>
             <button onclick="prevSlide()">上一页</button>
         </div>
     </div>
@@ -125,19 +172,33 @@
     </div>
     <script>
         let currentSection = 1;
+
         function nextSlide() {
-            if (currentSection < 6) {
+            if (currentSection < 10) {
                 document.getElementById(`section${currentSection}`).style.display = "none";
                 currentSection++;
                 document.getElementById(`section${currentSection}`).style.display = "flex";
             }
         }
+
         function prevSlide() {
             if (currentSection > 1) {
                 document.getElementById(`section${currentSection}`).style.display = "none";
                 currentSection--;
                 document.getElementById(`section${currentSection}`).style.display = "flex";
             }
+        }
+
+        function enableNextButton(sectionNumber) {
+            const checkbox = document.getElementById(`confirm${sectionNumber}`);
+            const nextButton = document.getElementById(`nextButton${sectionNumber}`);
+            nextButton.disabled = !checkbox.checked;
+        }
+
+        // 添加监听器，确认框选中时启用下一页按钮
+        for (let i = 1; i <= 9; i++) {
+            const checkbox = document.getElementById(`confirm${i}`);
+            checkbox.addEventListener("change", () => enableNextButton(i));
         }
     </script>
 </body>
