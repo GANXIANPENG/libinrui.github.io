@@ -63,6 +63,11 @@
             font-size: 14px;
             opacity: 0.8;
         }
+        img {
+            width: 50%;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(-20px); }
             to { opacity: 1; transform: translateY(0); }
@@ -73,27 +78,47 @@
     <div class="container" id="container">
         <div class="section" id="section1">
             <h1>祝李老师毕业快乐！🎓🎉</h1>
-            <p>By邓杰and甘弦朋✨</p>
+            <p>愿您的未来充满光明与成功！By DJ AND GXP</p>
             <button onclick="nextSlide()">下一页</button>
         </div>
         <div class="section" id="section2" style="display: none;">
             <h1>祝福语</h1>
-            <p>按时吃饭，好好睡觉。家人闲坐，灯火可亲。</p>
+            <p>按时吃饭，好好睡觉。家人闲坐，灯火可亲。🚀</p>
             <button onclick="prevSlide()">上一页</button>
             <button onclick="nextSlide()">下一页</button>
         </div>
         <div class="section" id="section3" style="display: none;">
+            <h1>成就与回忆</h1>
+            <p>您在学校名列前茅，无可替代，我们永远铭记大哥！📖</p>
+            <button onclick="prevSlide()">上一页</button>
+            <button onclick="nextSlide()">下一页</button>
+        </div>
+        <div class="section" id="section4" style="display: none;">
+            <h1>寄语未来</h1>
+            <p>还没想好🌍</p>
+            <button onclick="prevSlide()">上一页</button>
+            <button onclick="nextSlide()">下一页</button>
+        </div>
+        <div class="section" id="section5" style="display: none;">
+            <h1>特别瞬间</h1>
+            <p>真的好看！拍摄者@GAN📷</p>
+            <img src="7444be2a3315b3ec849c7e19b569863.jpg" alt="庆祝照片">
+            <button onclick="prevSlide()">上一页</button>
+            <button onclick="nextSlide()">下一页</button>
+        </div>
+        <div class="section" id="section6" style="display: none;">
             <h1>联系我们</h1>
-            <p>没事就不联系了📩</p>
+            <p>没事就不联系了，记得好好吃饭📩</p>
             <button onclick="prevSlide()">上一页</button>
         </div>
     </div>
     <div class="footer">
-        © 2025 全部运行代码由 @GAN 思考与开发 </div>
+        © 2025 由 GAN 设计与开发
+    </div>
     <script>
         let currentSection = 1;
         function nextSlide() {
-            if (currentSection < 3) {
+            if (currentSection < 6) {
                 document.getElementById(`section${currentSection}`).style.display = "none";
                 currentSection++;
                 document.getElementById(`section${currentSection}`).style.display = "flex";
