@@ -19,7 +19,6 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            transition: transform 0.5s ease-in-out;
         }
         .section {
             width: 100vw;
@@ -50,7 +49,11 @@
             cursor: pointer;
             transition: 0.3s;
         }
-        button:hover {
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        button:hover:not(:disabled) {
             background-color: #2193b0;
             color: white;
         }
@@ -63,16 +66,19 @@
             font-size: 14px;
             opacity: 0.8;
         }
+        .checkbox-container, .input-container {
+            margin-top: 20px;
+        }
+        .input-container input {
+            padding: 8px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
         img {
             width: 50%;
             border-radius: 10px;
             margin-top: 20px;
-        }
-        .checkbox-container {
-            margin-top: 20px;
-        }
-        .checkbox-container input {
-            margin-right: 10px;
         }
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(-20px); }
@@ -84,86 +90,88 @@
     <div class="container" id="container">
         <div class="section" id="section1">
             <h1>祝李老师毕业快乐！🎓🎉</h1>
-            <p>愿您的未来充满光明与成功！✨</p>
+            <p>From甘弦朋 邓杰</p>
             <button onclick="nextSlide()">下一页</button>
         </div>
+        
         <div class="section" id="section2" style="display: none;">
-            <h1>祝福语</h1>
-            <p>未来可期，祝您步步高升！🚀</p>
+            <h1>注意</h1>
+            <p>点击“已确认”方可继续下一页面</p>
+            <p>点击“已确认”即表示您同意并理解上述内容</p>
             <div class="checkbox-container">
-                <input type="checkbox" id="confirm1"> <label for="confirm1">已确认</label>
+                <input type="checkbox" id="confirm1" onchange="enableNextButton(1)"> <label for="confirm1">已确认</label>
+            </div>
+            <button onclick="nextSlide()" id="nextButton1" disabled>下一页</button>
+        </div>
+
+        <!-- 验证页面 -->
+        <div class="section" id="section3" style="display: none;">
+            <h1>密钥验证</h1>
+            <p>请输入密钥以继续：</p>
+            <div class="input-container">
+                <input type="text" id="captchaInput" placeholder="输入 libinrui" oninput="validateCaptcha()">
             </div>
             <button onclick="nextSlide()" id="nextButton2" disabled>下一页</button>
         </div>
-        <div class="section" id="section3" style="display: none;">
-            <h1>成就与回忆</h1>
-            <p>感谢您的辛勤付出，我们永远铭记！📖</p>
+
+        <div class="section" id="section4" style="display: none;">
+            <h1>回忆成就</h1>
+            <p>声乐部门公认的唱歌第一</p>
+            <p>钢琴部门弹钢琴第一</p>
+            <p>学校里学习第一</p>
+            <p>体育第一</p>
+            <p>吃饭第一</p>
             <div class="checkbox-container">
-                <input type="checkbox" id="confirm2"> <label for="confirm2">已确认</label>
+                <input type="checkbox" id="confirm2" onchange="enableNextButton(2)"> <label for="confirm2">已确认</label>
             </div>
             <button onclick="nextSlide()" id="nextButton3" disabled>下一页</button>
         </div>
-        <div class="section" id="section4" style="display: none;">
-            <h1>寄语未来</h1>
-            <p>新的人生旅程即将开启，愿您一帆风顺！🌍</p>
+
+        <div class="section" id="section5" style="display: none;">
+            <h1>@GAN想说的话</h1>
+            <p>想说的话放这里 禁用http循环！</p>
             <div class="checkbox-container">
-                <input type="checkbox" id="confirm3"> <label for="confirm3">已确认</label>
+                <input type="checkbox" id="confirm3" onchange="enableNextButton(3)"> <label for="confirm3">已确认</label>
             </div>
             <button onclick="nextSlide()" id="nextButton4" disabled>下一页</button>
         </div>
-        <div class="section" id="section5" style="display: none;">
-            <h1>特别瞬间</h1>
-            <p>难忘的时刻值得珍藏！📷</p>
-            <img src="7444be2a3315b3ec849c7e19b569863.jpg" alt="庆祝照片">
-            <div class="checkbox-container">
-                <input type="checkbox" id="confirm4"> <label for="confirm4">已确认</label>
-            </div>
-            <button onclick="nextSlide()" id="nextButton5" disabled>下一页</button>
-        </div>
+
+        <!-- 新增页面 -->
         <div class="section" id="section6" style="display: none;">
-            <h1>感谢您的一切</h1>
-            <p>您的教诲我们永远铭刻！❤️</p>
-            <div class="checkbox-container">
-                <input type="checkbox" id="confirm5"> <label for="confirm5">已确认</label>
-            </div>
-            <button onclick="nextSlide()" id="nextButton6" disabled>下一页</button>
+            <h1>@DENG想说的话</h1>
+            <p>想说的话放这里 禁用http循环！</p>
+            <button onclick="nextSlide()">下一页</button>
         </div>
+
+        <!-- 图片展示页面 -->
         <div class="section" id="section7" style="display: none;">
-            <h1>您的风采</h1>
-            <p>您是我们的榜样，永远的导师！💪</p>
-            <div class="checkbox-container">
-                <input type="checkbox" id="confirm6"> <label for="confirm6">已确认</label>
-            </div>
-            <button onclick="nextSlide()" id="nextButton7" disabled>下一页</button>
+            <h1>特别瞬间</h1>
+            <p>这张真的好看！📷拍摄者@GAN</p>
+            <p>图片加载失败就刷新或者更换网络环境</p>
+            <img src="7444be2a3315b3ec849c7e19b569863.jpg" alt="庆祝照片">
+            <button onclick="nextSlide()">下一页</button>
         </div>
+
         <div class="section" id="section8" style="display: none;">
-            <h1>我们都在这里</h1>
-            <p>无论未来如何，我们将永远支持您！🤝</p>
-            <div class="checkbox-container">
-                <input type="checkbox" id="confirm7"> <label for="confirm7">已确认</label>
-            </div>
-            <button onclick="nextSlide()" id="nextButton8" disabled>下一页</button>
-        </div>
-        <div class="section" id="section9" style="display: none;">
             <h1>祝李老师未来一切顺利！</h1>
             <p>再次祝您毕业快乐，未来可期！🎉</p>
-            <div class="checkbox-container">
-                <input type="checkbox" id="confirm8"> <label for="confirm8">已确认</label>
-            </div>
             <button onclick="prevSlide()">上一页</button>
         </div>
     </div>
+
     <div class="footer">
         © 2025 全部运行代码由 GAN 设计与开发
     </div>
+
     <script>
         let currentSection = 1;
 
         function nextSlide() {
-            if (currentSection < 9) {
+            if (currentSection < 8) {
                 document.getElementById(`section${currentSection}`).style.display = "none";
                 currentSection++;
                 document.getElementById(`section${currentSection}`).style.display = "flex";
+                window.scrollTo(0, 0);
             }
         }
 
@@ -172,23 +180,23 @@
                 document.getElementById(`section${currentSection}`).style.display = "none";
                 currentSection--;
                 document.getElementById(`section${currentSection}`).style.display = "flex";
+                window.scrollTo(0, 0);
             }
         }
 
         function enableNextButton(sectionNumber) {
             const checkbox = document.getElementById(`confirm${sectionNumber}`);
             const nextButton = document.getElementById(`nextButton${sectionNumber}`);
-            nextButton.disabled = !checkbox.checked;
+            if (checkbox && nextButton) {
+                nextButton.disabled = !checkbox.checked;
+            }
         }
 
-        // 页面加载时确保每个复选框的按钮是否需要启用
-        window.onload = () => {
-            for (let i = 1; i <= 8; i++) {
-                enableNextButton(i); // 确保每个页面加载时检查按钮状态
-                const checkbox = document.getElementById(`confirm${i}`);
-                checkbox.addEventListener("change", () => enableNextButton(i)); // 添加事件监听
-            }
-        };
+        function validateCaptcha() {
+            const inputField = document.getElementById("captchaInput");
+            const nextButton = document.getElementById("nextButton2");
+            nextButton.disabled = inputField.value.trim().toLowerCase() !== "linbinrui";
+        }
     </script>
 </body>
 </html>
