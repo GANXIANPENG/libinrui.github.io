@@ -5,20 +5,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>祝李老师毕业快乐！</title>
   <style>
-    /* 基础样式 */
+    :root {
+      --primary-color: #2193b0;
+      --secondary-color: #6dd5ed;
+      --white-bg: rgba(255, 255, 255, 0.2);
+      --transition-duration: 0.5s;
+    }
+    /* 优化背景动画：使用背景尺寸和位移来制造更平滑的渐变效果 */
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       text-align: center;
-      background: linear-gradient(135deg, #6dd5ed, #2193b0);
-      height: 100vh;
+      background: linear-gradient(45deg, var(--secondary-color), var(--primary-color), var(--secondary-color));
+      background-size: 400% 400%;
       margin: 0;
+      height: 100vh;
       overflow: hidden;
-      animation: bgAnimation 15s ease-in-out infinite alternate;
+      animation: bgAnimation 15s ease infinite;
     }
     @keyframes bgAnimation {
-      0% { background: linear-gradient(135deg, #6dd5ed, #2193b0); }
-      50% { background: linear-gradient(135deg, #2193b0, #6dd5ed); }
-      100% { background: linear-gradient(135deg, #6dd5ed, #2193b0); }
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
     .container {
       width: 100vw;
@@ -27,29 +34,31 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      position: relative;
+      z-index: 1;
     }
+    /* 优化页面切换：使用平滑的透明度与位移过渡 */
     .section {
-      width: 100vw;
-      height: 100vh;
+      width: 90%;
+      max-width: 800px;
+      margin: auto;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       color: #fff;
       opacity: 0;
-      animation: fadeIn 1s forwards;
+      transform: translateY(20px);
+      transition: opacity var(--transition-duration) ease, transform var(--transition-duration) ease;
     }
     .section.show {
       opacity: 1;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+      transform: translateY(0);
     }
     h1 {
       font-size: 50px;
       text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
-      background: rgba(255, 255, 255, 0.2);
+      background: var(--white-bg);
       box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
       backdrop-filter: blur(5px);
       -webkit-backdrop-filter: blur(5px);
@@ -63,28 +72,30 @@
       opacity: 0.95;
       margin: 10px;
     }
+    /* 优化按钮：更圆润的边角，渐变背景与更平滑的悬停效果 */
     button {
       margin-top: 20px;
       padding: 12px 25px;
       font-size: 18px;
       border: none;
-      border-radius: 5px;
-      background-color: #fff;
-      color: #2193b0;
+      border-radius: 25px;
+      background: linear-gradient(45deg, #fff, var(--primary-color));
+      color: var(--primary-color);
       cursor: pointer;
-      transition: transform 0.2s, background-color 0.3s, color 0.3s;
+      transition: transform 0.2s ease, background 0.3s ease, color 0.3s ease;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
     button:disabled {
-      background-color: #ccc;
+      background: #ccc;
+      color: #666;
       cursor: not-allowed;
       transform: none;
       box-shadow: none;
     }
     button:hover:not(:disabled) {
-      background-color: #2193b0;
-      color: #fff;
       transform: scale(1.05);
+      background: linear-gradient(45deg, var(--primary-color), #fff);
+      color: #fff;
     }
     .footer {
       position: fixed;
@@ -104,40 +115,41 @@
       border-radius: 5px;
       border: 1px solid #ccc;
       outline: none;
-      transition: border-color 0.3s;
+      transition: border-color 0.3s ease;
     }
     .input-container input:focus {
-      border-color: #2193b0;
+      border-color: var(--primary-color);
     }
     img {
       width: 50%;
       border-radius: 10px;
       margin-top: 20px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-      transition: transform 0.3s;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
     img:hover {
       transform: scale(1.05);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
     }
     /* Canvas 全屏动画 */
     #fireworksCanvas {
-      position: absolute;
+      position: fixed;
       top: 0;
       left: 0;
       pointer-events: none;
-      z-index: -1;
+      z-index: 0;
     }
   </style>
 </head>
 <body>
   <div class="container" id="container">
-    <div class="section" id="section1" style="animation-delay: 0s;">
+    <div class="section show" id="section1">
       <h1>祝李老师毕业快乐！🎓🎉</h1>
       <p>From 甘弦朋 邓杰</p>
       <button onclick="nextSlide()">下一页</button>
     </div>
 
-    <div class="section" id="section2" style="display: none; animation-delay: 0.3s;">
+    <div class="section" id="section2" style="animation-delay: 0.3s;">
       <h1>人机验证注意</h1>
       <p>点击“已确认”方可进行下一步</p>
       <p>点击即代表您同意上述内容</p>
@@ -149,16 +161,16 @@
     </div>
 
     <!-- 密码验证页面 -->
-    <div class="section" id="section3" style="display: none; animation-delay: 0.6s;">
+    <div class="section" id="section3" style="animation-delay: 0.6s;">
       <h1>请输入密码</h1>
       <p>请输入正确密码以继续：</p>
       <div class="input-container">
-        <input type="password" id="passwordInput" placeholder="输入密码" oninput="validatePassword()" onkeypress="handleEnter(event)">
+        <input type="password" id="passwordInput" placeholder="密码不知道就问GXP或DJ" oninput="validatePassword()" onkeypress="handleEnter(event)">
       </div>
       <button onclick="nextSlide()" id="nextButton2" disabled>下一页</button>
     </div>
 
-    <div class="section" id="section4" style="display: none; animation-delay: 0.9s;">
+    <div class="section" id="section4" style="animation-delay: 0.9s;">
       <h1>回忆成就</h1>
       <p>声乐部门公认的唱歌第一</p>
       <p>钢琴部门弹钢琴第一</p>
@@ -173,7 +185,7 @@
       <button onclick="nextSlide()" id="nextButton3" disabled>下一页</button>
     </div>
 
-    <div class="section" id="section5" style="display: none; animation-delay: 1.2s;">
+    <div class="section" id="section5" style="animation-delay: 1.2s;">
       <h1>GAN</h1>
       <p>好好吃饭，按时睡觉。</p>
       <p>家人闲坐，灯火可亲。</p>
@@ -185,7 +197,7 @@
     </div>
 
     <!-- 新增页面 -->
-    <div class="section" id="section6" style="display: none; animation-delay: 1.5s;">
+    <div class="section" id="section6" style="animation-delay: 1.5s;">
       <h1>DENG</h1>
       <p>希君生羽翼</p>
       <p>一化北冥鱼</p>
@@ -193,34 +205,46 @@
     </div>
 
     <!-- 图片展示页面 -->
-    <div class="section" id="section7" style="display: none; animation-delay: 1.8s;">
+    <div class="section" id="section7" style="animation-delay: 1.8s;">
       <h1>特别的瞬间</h1>
       <p>这张很好看！📷摄影师@GAN</p>
       <p>图片加载失败就刷新或者换网络环境</p>
       <p>实在不行买台新手机</p>
-      <img src="7444be2a3315b3ec849c7e19b569863.jpg" alt="lbr吃饭照片">
+      <img src="7444be2a3315b3ec849c7e19b569863.jpg" alt="lbr吃饭照片合集">
       <button onclick="nextSlide()">下一页</button>
     </div>
 
-    <div class="section" id="section8" style="display: none; animation-delay: 2.1s;">
+    <div class="section" id="section8" style="animation-delay: 2.1s;">
       <h1>祝李老师未来一切顺利！</h1>
-      <p>再次祝：毕业快乐，未来可期！🎉</p>
+      <p>毕业快乐，未来可期！🎉</p>
       <p>顺顺利利，学业有成！🎉</p>
       <button onclick="goToHome()">回到首页</button>
       <canvas id="fireworksCanvas"></canvas>
     </div>
 
-  <div class="footer">
-    © 2025 全部运行代码由 GAN 设计与开发
+    <div class="footer">
+      ©2025 全部运行代码由 GAN 设计与开发
+    </div>
   </div>
 
   <script>
     let currentSection = 1;
     const sections = document.querySelectorAll('.section');
 
-    // 显示首个页面
-    document.getElementById(`section${currentSection}`).style.display = "flex";
-    document.getElementById(`section${currentSection}`).classList.add('show');
+    function showSection(sectionNumber) {
+      sections.forEach(section => {
+        section.classList.remove('show');
+        section.style.display = "none";
+      });
+      const current = document.getElementById(`section${sectionNumber}`);
+      current.style.display = "flex";
+      setTimeout(() => {
+        current.classList.add('show');
+      }, 100);
+    }
+
+    // 显示初始页面
+    showSection(currentSection);
 
     function nextSlide() {
       const current = document.getElementById(`section${currentSection}`);
@@ -230,7 +254,6 @@
         currentSection++;
         const next = document.getElementById(`section${currentSection}`);
         next.style.display = "flex";
-        // 延迟触发动画类，以确保页面显示后再启动动画
         setTimeout(() => {
           next.classList.add('show');
         }, 100);
