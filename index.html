@@ -108,6 +108,27 @@
             <button onclick="nextSlide()" id="nextButton1" disabled>下一页</button>
         </div>
 
+        <!-- 新增小游戏页面 -->
+<div class="section" id="sectionGame" style="display: none;">
+    <h1>小游戏挑战</h1>
+    <p>快速点击按钮10次，即可继续下一页！</p>
+    <p>点击次数：<span id="clickCount">0</span>/10</p>
+    <button onclick="incrementClickCount()">点击我</button>
+    <button onclick="nextSlide()" id="nextGameButton" disabled>下一页</button>
+</div>
+
+<script>
+    let clickCount = 0;
+
+    function incrementClickCount() {
+        clickCount++;
+        document.getElementById("clickCount").innerText = clickCount;
+        if (clickCount >= 10) {
+            document.getElementById("nextGameButton").disabled = false;
+        }
+    }
+</script>
+
         <!-- 密码验证页面 -->
         <div class="section" id="section3" style="display: none;">
             <h1>请输入密码</h1>
