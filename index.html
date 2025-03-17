@@ -29,13 +29,17 @@
             align-items: center;
             color: white;
         }
-
-
-
         h1 {
             font-size: 50px;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
             animation: fadeIn 2s ease-in-out;
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 10px 20px;
+            border-radius: 10px;
         }
         p {
             font-size: 20px;
@@ -163,12 +167,12 @@
         </div>
 
        <div class="section" id="section8" style="display: none;">
-    <h1>祝李老师未来一切顺利！</h1>
-    <p>再次祝：毕业快乐，未来可期！🎉</p>
-    <p>顺顺利利，学业有成！🎉</p>
-    <button onclick="goToHome()">回到首页</button>
-    <canvas id="fireworksCanvas"></canvas>
-</div>
+            <h1>祝李老师未来一切顺利！</h1>
+            <p>再次祝：毕业快乐，未来可期！🎉</p>
+            <p>顺顺利利，学业有成！🎉</p>
+            <button onclick="goToHome()">回到首页</button>
+            <canvas id="fireworksCanvas"></canvas>
+        </div>
 
     <div class="footer">
         © 2025 全部运行代码由 GAN 设计与开发
@@ -177,16 +181,15 @@
     <script>
         let currentSection = 1;
 
-       function nextSlide() {
-    document.getElementById(`section${currentSection}`).style.display = "none";
-    currentSection++;
-    document.getElementById(`section${currentSection}`).style.display = "flex";
-    window.scrollTo(0, 0);
-
-    if (currentSection === 8) {
-        setTimeout(startFireworks, 500);
-    }
-}
+        function nextSlide() {
+            document.getElementById(`section${currentSection}`).style.display = "none";
+            currentSection++;
+            document.getElementById(`section${currentSection}`).style.display = "flex";
+            window.scrollTo(0, 0);
+            if (currentSection === 8) {
+                startFireworks();
+            }
+        }
 
         function goToHome() {
             document.getElementById(`section${currentSection}`).style.display = "none";
@@ -205,77 +208,66 @@
 
         function handleEnter(event) {
             if (event.key === "Enter") validatePassword();
-
-
         }
+
         function startFireworks() {
-    const canvas = document.getElementById("fireworksCanvas");
-    if (!canvas) {
-        console.error("Canvas 元素未找到");
-        return;
-    }
-    const ctx = canvas.getContext("2d");
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    
-    const particles = [];
-    function Particle(x, y, color) {
-        this.x = x;
-        this.y = y;
-        this.color = color;
-        this.size = Math.random() * 3 + 1;
-        this.speedX = Math.random() * 4 - 2;
-        this.speedY = Math.random() * 4 - 2;
-        this.opacity = 1;
-    }
-    Particle.prototype.update = function() {
-        this.x += this.speedX;
-        this.y += this.speedY;
-        this.opacity -= 0.02;
-    };
-    Particle.prototype.draw = function() {
-        ctx.globalAlpha = this.opacity;
-        ctx.fillStyle = this.color;
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fill();
-    };
-    
-    function createFirework(x, y) {
-        const colors = ["red", "yellow", "blue", "green", "purple", "orange"];
-        for (let i = 0; i < 50; i++) {
-            particles.push(new Particle(x, y, colors[Math.floor(Math.random() * colors.length)]));
-        }
-    }
-    
-    function animate() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        for (let i = 0; i < particles.length; i++) {
-            particles[i].update();
-            particles[i].draw();
-            if (particles[i].opacity <= 0) {
-                particles.splice(i, 1);
-                i--;
+            const canvas = document.getElementById("fireworksCanvas");
+            if (!canvas) {
+                console.error("Canvas 元素未找到");
+                return;
             }
-        }
-        requestAnimationFrame(animate);
-    }
-    
-    setInterval(() => {
-        createFirework(Math.random() * canvas.width, Math.random() * canvas.height);
-    }, 500);
-    
-    animate();
-}
-
-        function nextSlide() {
-            document.getElementById(`section${currentSection}`).style.display = "none";
-            currentSection++;
-            document.getElementById(`section${currentSection}`).style.display = "flex";
-            window.scrollTo(0, 0);
-            if (currentSection === 8) {
-                startFireworks();
+            const ctx = canvas.getContext("2d");
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            
+            const particles = [];
+            function Particle(x, y, color) {
+                this.x = x;
+                this.y = y;
+                this.color = color;
+                this.size = Math.random() * 3 + 1;
+                this.speedX = Math.random() * 4 - 2;
+                this.speedY = Math.random() * 4 - 2;
+                this.opacity = 1;
             }
+            Particle.prototype.update = function() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                this.opacity -= 0.02;
+            };
+            Particle.prototype.draw = function() {
+                ctx.globalAlpha = this.opacity;
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            };
+            
+            function createFirework(x, y) {
+                const colors = ["red", "yellow", "blue", "green", "purple", "orange"];
+                for (let i = 0; i < 50; i++) {
+                    particles.push(new Particle(x, y, colors[Math.floor(Math.random() * colors.length)]));
+                }
+            }
+            
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                for (let i = 0; i < particles.length; i++) {
+                    particles[i].update();
+                    particles[i].draw();
+                    if (particles[i].opacity <= 0) {
+                        particles.splice(i, 1);
+                        i--;
+                    }
+                }
+                requestAnimationFrame(animate);
+            }
+            
+            setInterval(() => {
+                createFirework(Math.random() * canvas.width, Math.random() * canvas.height);
+            }, 500);
+            
+            animate();
         }
     </script>
 </body>
