@@ -56,7 +56,7 @@
       transform: translateY(0);
     }
     h1 {
-      font-size: 50px;
+      font-size: 30px; /* 字体稍微小一些 */
       text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
       background: var(--white-bg);
       box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
@@ -66,6 +66,11 @@
       padding: 10px 20px;
       border-radius: 10px;
       margin: 20px;
+    }
+    /* 将第一页和最后一页的标题置于烟花效果（canvas）之上 */
+    #section1 h1, #section9 h1 {
+      position: relative;
+      z-index: 2;
     }
     p {
       font-size: 20px;
@@ -139,17 +144,42 @@
       pointer-events: none;
       z-index: 0;
     }
+    /* 新增：第一页烟花效果 canvas 样式 */
+    #fireworksCanvasFirst {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
   </style>
 </head>
 <body>
   <div class="container" id="container">
+    <!-- 第一页 -->
     <div class="section show" id="section1">
       <h1>祝李老师毕业快乐！🎓🎉</h1>
       <p>From 甘弦朋 邓杰</p>
+      <p>website start time 2025/3/16</p>
       <button onclick="nextSlide()">下一页</button>
+      <!-- 在第一页添加烟花 canvas -->
+      <canvas id="fireworksCanvasFirst"></canvas>
     </div>
 
+    <!-- 新增的小游戏页面（插入在第一页和原第二页之间） -->
     <div class="section" id="section2" style="animation-delay: 0.3s;">
+      <h1>稍微等一会。活动下手指</h1>
+      <p>等待后面的底层画面渲染完毕..。</p>
+      <p>等待后续底层图片加载完成...</p>
+      <p>在10秒内点击按钮尽可能多次来获取分数！</p>
+      <p>分数：<span id="scoreDisplay">0</span></p>
+      <button id="gameButton" onclick="gameClick()">点我得分</button>
+      <p id="timerDisplay">时间剩余: 10秒</p>
+      <button onclick="nextSlide()" id="nextButtonGame" style="display:none;">下一页</button>
+    </div>
+
+    <!-- 原第二页，现为第三页 -->
+    <div class="section" id="section3" style="animation-delay: 0.6s;">
       <h1>人机验证注意</h1>
       <p>点击“已确认”方可进行下一步</p>
       <p>点击即代表您同意上述内容</p>
@@ -160,8 +190,8 @@
       <button onclick="nextSlide()" id="nextButton1" disabled>下一页</button>
     </div>
 
-    <!-- 密码验证页面 -->
-    <div class="section" id="section3" style="animation-delay: 0.6s;">
+    <!-- 密码验证页面，现为第四页 -->
+    <div class="section" id="section4" style="animation-delay: 0.9s;">
       <h1>请输入密码</h1>
       <p>请输入正确密码以继续：</p>
       <div class="input-container">
@@ -170,13 +200,15 @@
       <button onclick="nextSlide()" id="nextButton2" disabled>下一页</button>
     </div>
 
-    <div class="section" id="section4" style="animation-delay: 0.9s;">
+    <!-- 回忆成就页面，现为第五页 -->
+    <div class="section" id="section5" style="animation-delay: 1.2s;">
       <h1>回忆成就</h1>
       <p>声乐部门公认的唱歌第一</p>
       <p>钢琴部门弹钢琴第一</p>
       <p>体育体能第一</p>
       <p>学习成绩第一</p>
       <p>吃饭第一</p>
+      <p>...第一</p>
       <p>是我们学习的榜样</p>
       <div class="checkbox-container">
         <input type="checkbox" id="confirm2" onchange="enableNextButton('confirm2', 'nextButton3')"> 
@@ -185,7 +217,8 @@
       <button onclick="nextSlide()" id="nextButton3" disabled>下一页</button>
     </div>
 
-    <div class="section" id="section5" style="animation-delay: 1.2s;">
+    <!-- GAN 页面，现为第六页 -->
+    <div class="section" id="section6" style="animation-delay: 1.5s;">
       <h1>GAN</h1>
       <p>好好吃饭，按时睡觉。</p>
       <p>家人闲坐，灯火可亲。</p>
@@ -196,27 +229,28 @@
       <button onclick="nextSlide()" id="nextButton4" disabled>下一页</button>
     </div>
 
-    <!-- 新增页面 -->
-    <div class="section" id="section6" style="animation-delay: 1.5s;">
+    <!-- DENG 页面，现为第七页 -->
+    <div class="section" id="section7" style="animation-delay: 1.8s;">
       <h1>DENG</h1>
-      <p>希君生羽翼</p>
-      <p>一化北冥鱼</p>
+      <p>希君生羽翼,</p>
+      <p>一化北冥鱼。</p>
       <button onclick="nextSlide()">下一页</button>
     </div>
 
-    <!-- 图片展示页面 -->
-    <div class="section" id="section7" style="animation-delay: 1.8s;">
+    <!-- 图片展示页面，现为第八页 -->
+    <div class="section" id="section8" style="animation-delay: 2.1s;">
       <h1>特别的瞬间</h1>
-      <p>这几张很好看！📷摄影师@GAN</p>
+      <p>这张很好看！📷摄影师@GAN</p>
       <p>图片加载失败就刷新或者换网络环境</p>
       <p>实在不行买台新手机</p>
       <img src="7444be2a3315b3ec849c7e19b569863.jpg" alt="lbr吃饭照片合集">
       <button onclick="nextSlide()">下一页</button>
     </div>
 
-    <div class="section" id="section8" style="animation-delay: 2.1s;">
-      <h1>祝李老师未来一切顺利！</h1>
-      <p>毕业快乐，未来可期！🎉</p>
+    <!-- 毕业祝福页面，现为第九页 -->
+    <div class="section" id="section9" style="animation-delay: 2.4s;">
+      <h1>祝李老师毕业快乐！</h1>
+      <p>开开心心，未来可期！🎉</p>
       <p>顺顺利利，学业有成！🎉</p>
       <button onclick="goToHome()">回到首页</button>
       <canvas id="fireworksCanvas"></canvas>
@@ -245,6 +279,8 @@
 
     // 显示初始页面
     showSection(currentSection);
+    // 启动第一页的烟花效果
+    startFireworks("fireworksCanvasFirst");
 
     function nextSlide() {
       const current = document.getElementById(`section${currentSection}`);
@@ -256,9 +292,13 @@
         next.style.display = "flex";
         setTimeout(() => {
           next.classList.add('show');
+          // 如果进入小游戏页面，则启动游戏
+          if (currentSection === 2) {
+            startGame();
+          }
         }, 100);
         window.scrollTo(0, 0);
-        if (currentSection === 8) {
+        if (currentSection === 9) {
           startFireworks();
         }
       }, 300);
@@ -276,6 +316,8 @@
           home.classList.add('show');
         }, 100);
         window.scrollTo(0, 0);
+        // 重启第一页烟花效果
+        startFireworks("fireworksCanvasFirst");
       }, 300);
     }
 
@@ -291,10 +333,50 @@
       if (event.key === "Enter") validatePassword();
     }
 
-    function startFireworks() {
-      const canvas = document.getElementById("fireworksCanvas");
+    // 小游戏相关代码
+    let gameScore = 0;
+    let gameTime = 10; // 游戏时间，单位：秒
+    let gameTimer;
+
+    function startGame() {
+      // 重置游戏分数和时间
+      gameScore = 0;
+      gameTime = 10;
+      document.getElementById("scoreDisplay").innerText = gameScore;
+      document.getElementById("timerDisplay").innerText = "时间剩余: " + gameTime + "秒";
+      document.getElementById("gameButton").disabled = false;
+      document.getElementById("nextButtonGame").style.display = "none";
+
+      // 清除之前的计时器
+      if (gameTimer) clearInterval(gameTimer);
+
+      // 启动倒计时
+      gameTimer = setInterval(() => {
+        gameTime--;
+        document.getElementById("timerDisplay").innerText = "时间剩余: " + gameTime + "秒";
+        if (gameTime <= 0) {
+          clearInterval(gameTimer);
+          endGame();
+        }
+      }, 1000);
+    }
+
+    function gameClick() {
+      gameScore++;
+      document.getElementById("scoreDisplay").innerText = gameScore;
+    }
+
+    function endGame() {
+      document.getElementById("gameButton").disabled = true;
+      // 游戏结束后显示下一页按钮
+      document.getElementById("nextButtonGame").style.display = "inline-block";
+    }
+
+    // 烟花动画代码，新增参数 canvasId（默认为 "fireworksCanvas"）
+    function startFireworks(canvasId = "fireworksCanvas") {
+      const canvas = document.getElementById(canvasId);
       if (!canvas) {
-        console.error("Canvas 元素未找到");
+        console.error("Canvas 元素未找到: " + canvasId);
         return;
       }
       const ctx = canvas.getContext("2d");
