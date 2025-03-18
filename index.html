@@ -254,11 +254,22 @@
       <p>开开心心，未来可期！🎉</p>
       <p>顺顺利利，学业有成！🎉</p>
       <button onclick="goToHome()">回到首页</button>
+      <button onclick="nextSlide()">查看制作人员名单</button>
       <canvas id="fireworksCanvas"></canvas>
     </div>
 
+    <!-- 新增：说明页面，现为第十页 -->
+    <div class="section" id="section10" style="animation-delay: 2.7s;">
+      <h1>制作人员</h1>
+      <p>代码设计与开发:GAN</p>
+      <p>动画改进与优化:GAN</p>
+      <p>文字来源:GAN DENG</p>
+      <p>图片来源:GAN DENG</p>
+      <button onclick="prevSlide()">上一页</button>
+    </div>
+
     <div class="footer">
-      ©2025 全部运行代码由 GAN 设计与开发
+      ©2025 运行代码由 GAN 设计与开发
     </div>
   </div>
 
@@ -302,6 +313,21 @@
         if (currentSection === 9) {
           startFireworks();
         }
+      }, 300);
+    }
+
+    function prevSlide() {
+      const current = document.getElementById(`section${currentSection}`);
+      current.classList.remove('show');
+      setTimeout(() => {
+        current.style.display = "none";
+        currentSection--;
+        const prev = document.getElementById(`section${currentSection}`);
+        prev.style.display = "flex";
+        setTimeout(() => {
+          prev.classList.add('show');
+        }, 100);
+        window.scrollTo(0, 0);
       }, 300);
     }
 
