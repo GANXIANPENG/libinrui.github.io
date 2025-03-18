@@ -152,6 +152,28 @@
       pointer-events: none;
       z-index: 0;
     }
+
+    /* 新增：漂亮的等待进度条样式 */
+    .progress-container {
+      width: 80%;
+      background-color: rgba(255,255,255,0.2);
+      border-radius: 10px;
+      margin: 10px auto;
+      overflow: hidden;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    }
+    .progress-bar {
+      height: 10px;
+      width: 100%;
+      background: linear-gradient(270deg, var(--primary-color), var(--secondary-color), var(--primary-color));
+      background-size: 400% 400%;
+      animation: progress-animation 3s ease infinite;
+    }
+    @keyframes progress-animation {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
   </style>
 </head>
 <body>
@@ -170,7 +192,13 @@
     <div class="section" id="section2" style="animation-delay: 0.3s;">
       <h1>等待时活动下手指</h1>
       <p>等待后续底层画面渲染完毕..</p>
+      <div class="progress-container">
+        <div class="progress-bar"></div>
+      </div>
       <p>等待后续底层画面加载完成..</p>
+      <div class="progress-container">
+        <div class="progress-bar"></div>
+      </div>
       <p>在10秒内点击按钮尽可能多次</p>
       <p>来获取分数</p>
       <p>分数：<span id="scoreDisplay">0</span></p>
@@ -196,7 +224,7 @@
       <h1>请输入密码</h1>
       <p>请输入正确密码以继续：</p>
       <div class="input-container">
-        <input type="password" id="passwordInput" placeholder="密码不知道就问GXP或DJ" oninput="validatePassword()" onkeypress="handleEnter(event)">
+        <input type="password" id="passwordInput" placeholder="不知道就问GAN或者DENG" oninput="validatePassword()" onkeypress="handleEnter(event)">
       </div>
       <button onclick="nextSlide()" id="nextButton2" disabled>下一页</button>
     </div>
