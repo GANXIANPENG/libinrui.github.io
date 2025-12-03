@@ -1,356 +1,86 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>祝李彬瑞毕业快乐！</title>
-  <style>
-    :root {
-      --primary-color: #00bfff;
-      --secondary-color: #87cefa;
-      --white-bg: rgba(255, 255, 255, 0.2);
-      --transition-duration: 0.5s;
-    }
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      text-align: center;
-      background: linear-gradient(45deg, #1a2a6c, #b21f1f, #fdbb2d); /* 更炫酷的渐变 */
-      background-size: 400% 400%;
-      margin: 0;
-      height: 100vh;
-      overflow: hidden;
-      animation: bgAnimation 10s ease infinite;
-      color: #fff;
-    }
-    @keyframes bgAnimation {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-    .container {
-      width: 100vw;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      position: relative;
-      z-index: 1;
-    }
-    .section {
-      width: 85%;
-      max-width: 600px;
-      margin: auto;
-      display: none; /* 默认隐藏 */
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      background: rgba(0, 0, 0, 0.4);
-      border-radius: 20px;
-      padding: 30px 20px;
-      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.5s ease, transform 0.5s ease;
-    }
-    .section.active {
-      display: flex;
-      opacity: 1;
-      transform: translateY(0);
-    }
-    h1 {
-      font-size: 26px;
-      margin-bottom: 20px;
-      text-shadow: 0 2px 4px rgba(0,0,0,0.5);
-    }
-    p {
-      font-size: 18px;
-      line-height: 1.6;
-      margin: 10px 0;
-      opacity: 0.9;
-    }
-    button {
-      margin-top: 25px;
-      padding: 12px 30px;
-      font-size: 16px;
-      border: none;
-      border-radius: 50px;
-      background: linear-gradient(90deg, #00d2ff 0%, #3a7bd5 100%);
-      color: white;
-      cursor: pointer;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-    button:active { transform: scale(0.95); }
-    button:hover { box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4); }
-    
-    input {
-      padding: 10px;
-      border-radius: 5px;
-      border: none;
-      width: 70%;
-      margin-top: 10px;
-      font-size: 16px;
-      text-align: center;
-    }
-
-    /* 烟花画布 */
-    #fireworksCanvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    /* 复选框样式 */
-    .checkbox-group { text-align: left; margin-top: 10px; }
-    .checkbox-group div { margin: 8px 0; font-size: 18px; }
-    input[type="checkbox"] { width: auto; margin-right: 10px; transform: scale(1.2); }
-
-    /* 加载页 */
-    #splash {
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: #000;
-      color: #0f0;
-      font-family: monospace;
-      padding: 20px;
-      box-sizing: border-box;
-      z-index: 9999;
-      overflow: hidden;
-      white-space: pre-wrap;
-      font-size: 14px;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>祝李彬瑞毕业快乐！</title>
+<style>
+  :root {
+    --primary-color: #00bfff;
+    --secondary-color: #87cefa;
+    --white-bg: rgba(255, 255, 255, 0.2);
+    --transition-duration: 0.6s;
+  }
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin:0;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    background: linear-gradient(120deg, #89f7fe 0%, #66a6ff 100%);
+    color:#fff;
+    overflow-x:hidden;
+    transition: background 1s ease;
+  }
+  .container {
+    max-width:800px;
+    margin:0 auto;
+    background: rgba(255,255,255,0.1);
+    border-radius:20px;
+    padding:40px 30px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    animation: fadeIn var(--transition-duration) ease forwards;
+    opacity:0;
+  }
+  @keyframes fadeIn {
+    from {opacity:0; transform: translateY(20px);}
+    to {opacity:1; transform: translateY(0);}
+  }
+  h1 {
+    font-size:32px;
+    margin-bottom:20px;
+    text-shadow:0 2px 4px rgba(0,0,0,0.5);
+  }
+  p {
+    font-size:18px;
+    line-height:1.6;
+    margin:10px 0;
+  }
+  button {
+    margin-top:25px;
+    padding:12px 30px;
+    font-size:16px;
+    border:none;
+    border-radius:50px;
+    background: linear-gradient(90deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    color:#fff;
+    cursor:pointer;
+    box-shadow:0 4px 15px rgba(0,0,0,0.3);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  button:hover {
+    box-shadow:0 6px 20px rgba(0,0,0,0.4);
+  }
+  button:active {
+    transform:scale(0.95);
+  }
+  input {
+    padding:10px;
+    border-radius:5px;
+    border:none;
+    width:70%;
+    margin-top:10px;
+  }
+</style>
 </head>
 <body>
-
-  <div id="splash">Initializing Graduation Protocol for Li Binrui...<br>> Loading memories...<br>> Checking happiness levels...<br>> 100% Match Found.<br></div>
-
-  <canvas id="fireworksCanvas"></canvas>
-
   <div class="container">
-    
-    <div class="section active" id="page1">
-      <h1>🎓 毕业快乐！</h1>
-      <p>To: 李彬瑞</p>
-      <p>这是一份迟来的（或者刚刚好的）<br>专属电子贺卡</p>
-      <p>Ready?</p>
-      <button onclick="nextPage(2)">开启旅程</button>
-    </div>
-
-    <div class="section" id="page2">
-      <h1>🔒 身份验证</h1>
-      <p>请输入你的名字以确认身份：</p>
-      <input type="text" id="nameInput" placeholder="李彬瑞">
-      <button onclick="checkName()">确认</button>
-    </div>
-
-    <div class="section" id="page3">
-      <h1>🏆 毕业生成就解锁</h1>
-      <p>回首这段时光，我们公认你是：</p>
-      <div class="checkbox-group">
-        <div><input type="checkbox" checked disabled> 这里的颜值担当</div>
-        <div><input type="checkbox" checked disabled> 努力与才华并存</div>
-        <div><input type="checkbox" checked disabled> 干饭第一名 (开玩笑的)</div>
-        <div><input type="checkbox" checked disabled> 值得拥有美好未来的人</div>
-      </div>
-      <button onclick="nextPage(4)">完全同意，下一页</button>
-    </div>
-
-    <div class="section" id="page4">
-      <h1>🚀 为未来加速</h1>
-      <p>前路或许漫长，但请相信自己的爆发力。</p>
-      <p>连续点击下方按钮 5 次<br>为未来蓄力！</p>
-      <p>蓄力值：<span id="clickCount">0</span>/5</p>
-      <button id="powerBtn" onclick="addPower()">蓄力！</button>
-    </div>
-
-    <div class="section" id="page5">
-      <h1>🌟 愿你</h1>
-      <p>“希君生羽翼，一化北冥鱼”</p>
-      <p>毕业不是终点，而是新的起点。</p>
-      <p>愿你保持热爱，奔赴山海。</p>
-      <p>愿你前程似锦，万事胜意！</p>
-      <button onclick="nextPage(6)">接收终极祝福</button>
-    </div>
-
-    <div class="section" id="page6">
-      <h1>🎉 李彬瑞，毕业快乐！</h1>
-      <p>🎓🎓🎓</p>
-      <p>祝你未来的每一天，<br>都像此刻的烟花一样璀璨！</p>
-      <p style="font-size: 14px; margin-top: 30px; opacity: 0.7;">©2025 特别制作</p>
-      <button onclick="location.reload()">重播回忆</button>
-    </div>
-
+    <h1>祝李彬瑞毕业快乐！</h1>
+    <p>愿你在新的旅程中前程似锦，乘风破浪。</p>
   </div>
-
-  <script>
-    // 页面切换逻辑
-    function nextPage(pageNumber) {
-      const current = document.querySelector('.section.active');
-      const next = document.getElementById('page' + pageNumber);
-      
-      if (current) {
-        current.classList.remove('active');
-        // 简单的淡出效果
-        setTimeout(() => {
-          current.style.display = 'none';
-          if (next) {
-            next.style.display = 'flex';
-            // 强制重绘
-            void next.offsetWidth;
-            next.classList.add('active');
-            
-            // 如果是最后一页，疯狂放烟花
-            if(pageNumber === 6) {
-              fireworksDensity = 50; // 增加烟花密度
-              launchAutoFireworks();
-            }
-          }
-        }, 500);
-      }
-    }
-
-    // 身份验证逻辑
-    function checkName() {
-      const name = document.getElementById('nameInput').value.trim();
-      if (name) {
-        alert(`欢迎你，${name}！`);
-        nextPage(3);
-      } else {
-        alert("皮这一下很开心吗？请输入名字😂"); // 幽默处理空输入
-        // 也可以直接让过：nextPage(3);
-      }
-    }
-
-    // 蓄力小游戏逻辑
-    let power = 0;
-    function addPower() {
-      power++;
-      document.getElementById('clickCount').innerText = power;
-      const btn = document.getElementById('powerBtn');
-      
-      // 按钮动画
-      btn.style.transform = 'scale(1.1)';
-      setTimeout(() => btn.style.transform = 'scale(1)', 100);
-
-      if (power >= 5) {
-        document.getElementById('powerBtn').innerText = "蓄力完成！🚀";
-        document.getElementById('powerBtn').disabled = true;
-        setTimeout(() => {
-          nextPage(5);
-        }, 800);
-      }
-    }
-
-    // 启动加载文字特效
-    window.onload = function() {
-      const splash = document.getElementById('splash');
-      const text = splash.innerHTML;
-      splash.innerHTML = '';
-      let i = 0;
-      
-      // 模拟打字
-      function typeWriter() {
-        if (i < text.length) {
-          splash.innerHTML = text.substring(0, i+1);
-          i++;
-          setTimeout(typeWriter, 20); // 打字速度
-        } else {
-          setTimeout(() => {
-            splash.style.transition = 'opacity 1s';
-            splash.style.opacity = 0;
-            setTimeout(() => splash.remove(), 1000);
-          }, 800);
-        }
-      }
-      // 简单处理HTML标签
-      splash.innerHTML = "正在加载李彬瑞的毕业惊喜...<br>Loading... 100%<br>";
-      setTimeout(() => {
-          splash.style.transition = 'opacity 0.8s';
-          splash.style.opacity = 0;
-          setTimeout(() => splash.remove(), 800);
-      }, 2000);
-      
-      // 启动背景烟花
-      animateFireworks();
-    };
-
-    // --- 烟花系统 (优化版，不卡顿) ---
-    const canvas = document.getElementById('fireworksCanvas');
-    const ctx = canvas.getContext('2d');
-    let width, height;
-    let particles = [];
-    let fireworksDensity = 20; // 默认密度
-
-    function resize() {
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = window.innerHeight;
-    }
-    window.addEventListener('resize', resize);
-    resize();
-
-    function Particle(x, y) {
-      this.x = x;
-      this.y = y;
-      this.vx = (Math.random() - 0.5) * 6;
-      this.vy = (Math.random() - 0.5) * 6;
-      this.alpha = 1;
-      this.color = `hsl(${Math.random() * 360}, 100%, 50%)`;
-    }
-
-    Particle.prototype.update = function() {
-      this.x += this.vx;
-      this.y += this.vy;
-      this.alpha -= 0.015;
-    };
-
-    Particle.prototype.draw = function() {
-      ctx.globalAlpha = this.alpha;
-      ctx.fillStyle = this.color;
-      ctx.beginPath();
-      ctx.arc(this.x, this.y, 3, 0, Math.PI * 2);
-      ctx.fill();
-    };
-
-    function createFirework() {
-      const x = Math.random() * width;
-      const y = Math.random() * height / 2; // 只在上半部分爆炸
-      for (let i = 0; i < 30; i++) {
-        particles.push(new Particle(x, y));
-      }
-    }
-
-    function animateFireworks() {
-      ctx.globalCompositeOperation = 'destination-out';
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.1)'; // 拖尾效果
-      ctx.fillRect(0, 0, width, height);
-      ctx.globalCompositeOperation = 'lighter';
-
-      for (let i = particles.length - 1; i >= 0; i--) {
-        particles[i].update();
-        particles[i].draw();
-        if (particles[i].alpha <= 0) particles.splice(i, 1);
-      }
-
-      if (Math.random() * 100 < 5) { // 随机生成
-        createFirework();
-      }
-
-      requestAnimationFrame(animateFireworks);
-    }
-    
-    function launchAutoFireworks() {
-       setInterval(createFirework, 200);
-    }
-
-  </script>
 </body>
 </html>
