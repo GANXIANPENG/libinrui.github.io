@@ -1,787 +1,90 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-5V9S2Q8DBF"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-5V9S2Q8DBF');
-  </script>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>祝李老师毕业和生日快乐！</title>
-  <style>
-    :root {
-      --primary-color: #00bfff; /* 天蓝色 */
-      --secondary-color: #87cefa; /* 浅天蓝 */
-      --white-bg: rgba(255, 255, 255, 0.2);
-      --transition-duration: 0.4s;
-    }
-    /* 新增：启动页面样式，设置overflow-y为auto以支持滚动 */
-    #splashScreen {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: #000;
-      color: #fff;
-      overflow-y: auto;
-      z-index: 9999;
-      padding: 20px;
-      box-sizing: border-box;
-      font-family: Consolas, "Courier New", monospace;
-      white-space: pre-wrap;
-    }
-    /* 原有样式 */
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      text-align: center;
-      background: linear-gradient(45deg, var(--secondary-color), var(--primary-color), var(--secondary-color));
-      background-size: 400% 400%;
-      margin: 0;
-      height: 100vh;
-      overflow: hidden;
-      animation: bgAnimation 15s ease infinite;
-    }
-    @keyframes bgAnimation {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-    .container {
-      width: 100vw;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      position: relative;
-      z-index: 1;
-    }
-    /* 每个页面占满全屏，并居中，同时新增半透明背景、圆角及阴影提升美观 */
-    .section {
-      width: 90%;
-      max-width: 800px;
-      min-height: 100vh;
-      margin: auto;
-      display: none;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      color: #fff;
-      background: rgba(0, 0, 0, 0.3);
-      border-radius: 15px;
-      padding: 20px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-      opacity: 0;
-      transform: translate3d(0,20px,0);
-      transition: opacity var(--transition-duration) ease, transform var(--transition-duration) ease;
-    }
-    /* 平滑淡入上移动画 */
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translate3d(0,20px,0);
-      }
-      to {
-        opacity: 1;
-        transform: translate3d(0,0,0);
-      }
-    }
-    .section.show {
-      display: flex;
-      animation: fadeInUp 0.4s ease-out forwards;
-    }
-    /* 新增：淡出下落动画 */
-    @keyframes fadeOutDown {
-      from {
-        opacity: 1;
-        transform: translate3d(0,0,0);
-      }
-      to {
-        opacity: 0;
-        transform: translate3d(0,20px,0);
-      }
-    }
-    .section.hide {
-      animation: fadeOutDown var(--transition-duration) ease-out forwards;
-    }
-    /* 标题淡入下落动画 */
-    @keyframes fadeInDown {
-      0% {
-        opacity: 0;
-        transform: translateY(-20px);
-      }
-      100% {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-    h1 {
-      font-size: 30px;
-      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
-      background: var(--white-bg);
-      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-      backdrop-filter: blur(5px);
-      -webkit-backdrop-filter: blur(5px);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      padding: 10px 20px;
-      border-radius: 10px;
-      margin: 20px;
-      animation: fadeInDown 1s ease-out;
-    }
-    /* 首页和毕业祝福页面标题置于烟花之上 */
-    #section1 h1, #section14 h1 {
-      position: relative;
-      z-index: 2;
-    }
-    p {
-      font-size: 20px;
-      opacity: 0.95;
-      margin: 10px;
-    }
-    /* 优化按钮样式 */
-    button {
-      margin-top: 20px;
-      padding: 12px 25px;
-      font-size: 18px;
-      border: none;
-      border-radius: 25px;
-      background: linear-gradient(45deg, #fff, var(--primary-color));
-      color: var(--primary-color);
-      cursor: pointer;
-      transition: transform 0.2s ease, background 0.3s ease, color 0.3s ease;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    }
-    @keyframes pop {
-      0% { transform: scale(1); }
-      50% { transform: scale(0.95); }
-      100% { transform: scale(1); }
-    }
-    button:active {
-      animation: pop 0.2s ease;
-    }
-    button:disabled {
-      background: #ccc;
-      color: #666;
-      cursor: not-allowed;
-      transform: none;
-      box-shadow: none;
-    }
-    button:hover:not(:disabled) {
-      transform: scale(1.05);
-      background: linear-gradient(45deg, var(--primary-color), #fff);
-      color: #fff;
-    }
-    .footer {
-      position: fixed;
-      bottom: 10px;
-      width: 100%;
-      text-align: center;
-      color: #fff;
-      font-size: 14px;
-      opacity: 0.85;
-      animation: pulse 3s infinite;
-    }
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.02); }
-      100% { transform: scale(1); }
-    }
-    .checkbox-container, .input-container {
-      margin-top: 20px;
-    }
-    .input-container input {
-      padding: 8px;
-      font-size: 16px;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-      outline: none;
-      transition: border-color 0.3s ease;
-    }
-    .input-container input:focus {
-      border-color: var(--primary-color);
-    }
-    img {
-      width: 50%;
-      border-radius: 10px;
-      margin-top: 20px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    img:hover {
-      transform: scale(1.05);
-      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
-    }
-    /* 全屏 canvas 样式 */
-    #fireworksCanvas, #fireworksCanvasFirst {
-      position: fixed;
-      top: 0;
-      left: 0;
-      pointer-events: none;
-      z-index: 0;
-    }
-    /* 等待进度条样式 */
-    .progress-container {
-      width: 80%;
-      background-color: rgba(255,255,255,0.2);
-      border-radius: 10px;
-      margin: 10px auto;
-      overflow: hidden;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-    }
-    .progress-bar {
-      height: 10px;
-      width: 100%;
-      background: linear-gradient(270deg, var(--primary-color), var(--secondary-color), var(--primary-color));
-      background-size: 400% 400%;
-      animation: progress-animation 3s ease infinite;
-    }
-    @keyframes progress-animation {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-    /* 限制拍照预览画布的显示尺寸，防止遮挡下一页按钮 */
-    #photoCanvas {
-      max-width: 320px;
-      max-height: 240px;
-      width: auto;
-      height: auto;
-      border: 1px solid #ccc;
-      margin-top: 10px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>你的名字 | 个人主页</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f9fafb; }
+        .hero-gradient { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+    </style>
 </head>
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-5V9S2Q8DBF"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-5V9S2Q8DBF');
-  </script>
-<body>
-  <!-- 启动页面：打字动画显示本站源代码，持续20秒后自动跳转 -->
-  <div id="splashScreen">加载中...</div>
+<body class="text-gray-800">
 
-  <div class="container" id="container">
-    <!-- 首页（原 section1） -->
-    <div class="section" id="section1">
-      <h1>祝李老师毕业快乐！生日快乐！</h1>
-      <p>From 甘弦朋</p>
-      <p>Website start time 2025/3/16</p>
-      <p>Last updated time  2026/1/11</p>
-      <p>请给予手机所有权限</p>
-      <p>否则无法进行下一步</p>
-      <p>*仅支持iOS16以上版本*</p>
-      <p>更新内容：优化了切换页面的流畅度</p>
-      <p>已知问题：摄像头调用时间过长设备发热</p>
-      <p>备注主题；1月11日是李老师生日</p>
-      <button onclick="nextSlide()">下一页</button>
-      <!-- 烟花 canvas -->
-      <canvas id="fireworksCanvasFirst"></canvas>
-    </div>
+    <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-200">
+        <div class="max-w-5xl mx-auto px-4 h-16 flex items-center justify-between">
+            <span class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600">Your Name</span>
+            <div class="space-x-6 text-sm font-medium">
+                <a href="#about" class="hover:text-indigo-600 transition">关于我</a>
+                <a href="#research" class="hover:text-indigo-600 transition">研究</a>
+                <a href="#projects" class="hover:text-indigo-600 transition">项目</a>
+                <a href="#contact" class="hover:text-indigo-600 transition">联系</a>
+            </div>
+        </div>
+    </nav>
 
-    <!-- 新页面1：请输入您的名字 -->
-    <div class="section" id="section2" style="animation-delay: 0.3s;">
-      <h1>请输入您的名字</h1>
-      <div class="input-container">
-        <input type="text" id="nameInput" placeholder="在此输入您的名字" oninput="checkNameInput()">
-      </div>
-      <button onclick="nextSlide()" id="nameNextButton" disabled>下一页</button>
-    </div>
+    <header id="about" class="hero-gradient py-20 text-white">
+        <div class="max-w-5xl mx-auto px-4 flex flex-col md:flex-row items-center gap-10">
+            <div class="w-40 h-40 rounded-full bg-white/20 border-4 border-white/30 overflow-hidden shadow-xl">
+                <img src="https://via.placeholder.com/150" alt="Avatar" class="w-full h-full object-cover">
+            </div>
+            <div class="flex-1 text-center md:text-left">
+                <h1 class="text-4xl font-extrabold mb-4">你好，我是 [你的名字]</h1>
+                <p class="text-lg text-indigo-100 mb-6 max-w-2xl leading-relaxed">
+                    目前专注于 **人工智能与音乐 (AI + Music)** 的跨学科研究。我热衷于探索如何利用深度学习技术来理解和创造艺术。
+                </p>
+                <div class="flex justify-center md:justify-start gap-4">
+                    <a href="https://github.com" class="bg-white text-indigo-700 px-5 py-2 rounded-full font-bold hover:bg-indigo-50 transition shadow-lg"><i class="fab fa-github mr-2"></i>GitHub</a>
+                    <a href="mailto:your@email.com" class="bg-indigo-500 text-white px-5 py-2 rounded-full font-bold hover:bg-indigo-400 transition shadow-lg"><i class="fas fa-envelope mr-2"></i>Email</a>
+                </div>
+            </div>
+        </div>
+    </header>
 
-    <!-- 新页面2：欢迎页面，根据前一页输入的姓名显示欢迎信息 -->
-    <div class="section" id="section3" style="animation-delay: 0.6s;">
-      <h1 id="welcomeTitle">欢迎你，!</h1>
-      <button onclick="nextSlide()">下一页</button>
-    </div>
+    <main class="max-w-5xl mx-auto px-4 py-16 space-y-20">
 
-    <!-- 定位页面（原 section2，现为 section4） -->
-    <div class="section" id="section4" style="animation-delay: 0.9s;">
-      <h1>了解一下你的位置</h1>
-      <p id="locationStatus">正在获取您的位置...</p>
-      <div id="mapWrapper" style="width:100%; margin:20px 0; position:relative;">
-        <div id="map" style="width:100%; height:400px; display:none;"></div>
-      </div>
-      <button onclick="nextSlide()" style="position:relative; z-index:2;">下一页</button>
-    </div>
+        <section id="research">
+            <h2 class="text-2xl font-bold mb-8 border-l-4 border-indigo-600 pl-4">研究兴趣</h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition">
+                    <div class="w-12 h-12 bg-indigo-100 text-indigo-600 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-music text-xl"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">生成式音乐 AI</h3>
+                    <p class="text-gray-600 text-sm">探索基于 Transformer 和扩散模型的音乐生成算法，实现高质量的音频合成。</p>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition">
+                    <div class="w-12 h-12 bg-purple-100 text-purple-600 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-microchip text-xl"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">芯片级 AI 加速</h3>
+                    <p class="text-gray-600 text-sm">研究嵌入式 AI 在音频信号处理中的应用，优化算法在硬件端的运行效率。</p>
+                </div>
+            </div>
+        </section>
 
-    <!-- 原摇手机互动页面（原 section3，现为 section5） -->
-    <div class="section" id="section5" style="animation-delay: 1.2s;">
-      <h1>试试摇一摇手机</h1>
-      <p id="blessingText" style="display: none;">毕业不是终点，而是一个新的起点。
-     前路光明，一切顺利。</p>
-      <button id="nextButtonSensor" onclick="nextSlide()" disabled>下一页</button>
-    </div>
+        <section id="publications">
+            <h2 class="text-2xl font-bold mb-8 border-l-4 border-indigo-600 pl-4">近期论文</h2>
+            <div class="space-y-6">
+                <div class="p-6 bg-white rounded-xl border border-gray-200">
+                    <span class="text-xs font-bold uppercase tracking-wider text-indigo-500 px-2 py-1 bg-indigo-50 rounded">Under Review</span>
+                    <h3 class="mt-2 font-bold text-lg text-gray-900">[你的论文题目：关于芯片与人工智能音乐的结合]</h3>
+                    <p class="text-gray-500 text-sm mt-1">**[你的名字]**, 周老师, 浦川老师, 等. *OpenReview, 2026*.</p>
+                </div>
+            </div>
+        </section>
 
-    <!-- 电子合照页面（原 section4，现为 section6） -->
-    <div class="section" id="section6" style="animation-delay: 1.5s;">
-      <h1>拍照存档</h1>
-      <p>请允许调用摄像头进行拍照</p>
-      <video id="video" width="320" height="240" autoplay playsinline style="border:1px solid #ccc;"></video>
-      <br>
-      <button id="captureButton" onclick="capturePhoto()">拍照</button>
-      <canvas id="photoCanvas" width="320" height="240" style="display:none;"></canvas>
-      <br>
-      <button onclick="nextSlide()">下一页</button>
-    </div>
+    </main>
 
-    <!-- 小游戏页面（原 section5，现为 section7） -->
-    <div class="section" id="section7" style="animation-delay: 1.8s;">
-      <h1>请等待片刻</h1>
-      <p>等待数据上传谷歌云服务器..</p>
-      <div class="progress-container">
-        <div class="progress-bar"></div>
-      </div>
-      <p>等待后续底层画面渲染完毕..</p>
-      <div class="progress-container">
-        <div class="progress-bar"></div>
-      </div>
-      <p>点击按钮以加速</p>
-      <p>点击次数：<span id="scoreDisplay">0</span></p>
-      <button id="gameButton" onclick="gameClick()">点我加速</button>
-      <p id="timerDisplay">时间剩余: 25秒</p>
-      <button onclick="nextSlide()" id="nextButtonGame" style="display:none;">下一页</button>
-    </div>
+    <footer id="contact" class="bg-gray-900 text-white py-12 text-center">
+        <p class="text-gray-400 mb-4">© 2026 [你的名字]. 基于 GitHub Pages 构建.</p>
+        <div class="flex justify-center gap-6">
+            <a href="#" class="text-gray-400 hover:text-white transition text-xl"><i class="fab fa-linkedin"></i></a>
+            <a href="#" class="text-gray-400 hover:text-white transition text-xl"><i class="fab fa-twitter"></i></a>
+        </div>
+    </footer>
 
-    <!-- 人机验证页面（原 section6，现为 section8） -->
-    <div class="section" id="section8" style="animation-delay: 2.1s;">
-      <h1>人机验证注意</h1>
-      <p>我确认，我已知晓了必要的隐私披露声明并给予最终用户授权，同意网站所有者收集用户的数据并进行相关处理，包括将此类数据与 Google Analytics 从网站和/或应用媒体资源收集的访问信息相关联。</p>
-      <p>本网站遵守Google相关法律政策</p>
-      <p>点击即代表您同意上述内容</p>
-      <div class="checkbox-container">
-        <input type="checkbox" id="confirm1" onchange="enableNextButton('confirm1', 'nextButton1')"> 
-        <label for="confirm1">已确认</label>
-      </div>
-      <button onclick="nextSlide()" id="nextButton1" disabled>下一页</button>
-    </div>
-
-    <!-- 密码验证页面（原 section7，现为 section9） -->
-    <div class="section" id="section9" style="animation-delay: 2.4s;">
-      <h1>请输入密码</h1>
-      <p>*因为买不起私人服务器所以用公共网络搭建*</p>
-      <p>*为避免此公共网站遭受恶意攻击登录所以设置密码*</p>
-      <div class="input-container">
-        <input type="password" id="passwordInput" placeholder="在此输入密码" oninput="validatePassword()" onkeypress="handleEnter(event)">
-      </div>
-      <button onclick="nextSlide()" id="nextButton2" disabled>下一页</button>
-    </div>
-
-    <!-- 回忆成就页面（原 section8，现为 section10） -->
-    <div class="section" id="section10" style="animation-delay: 2.7s;">
-      <h1>回忆成就</h1>
-      <p>声乐部门公认的唱歌第一</p>
-      <p>钢琴部门弹钢琴第一</p>
-      <p>体育体能第一</p>
-      <p>学习成绩第一</p>
-      <p>吃饭第一</p>
-      <p>...第一</p>
-      <p>是我们学习的榜样</p>
-      <div class="checkbox-container">
-        <input type="checkbox" id="confirm2" onchange="enableNextButton('confirm2', 'nextButton3')"> 
-        <label for="confirm2">已确认</label>
-      </div>
-      <button onclick="nextSlide()" id="nextButton3" disabled>下一页</button>
-    </div>
-
-    <!-- GAN 页面（原 section9，现为 section11） -->
-    <div class="section" id="section11" style="animation-delay: 3.0s;">
-      <h1>GAN</h1>
-      <p>好好吃饭，按时睡觉。</p>
-      <p>家人闲坐，灯火可亲。</p>
-      <p>前路光明，一切顺利。</p>
-      <div class="checkbox-container">
-        <input type="checkbox" id="confirm3" onchange="enableNextButton('confirm3', 'nextButton4')"> 
-        <label for="confirm3">已确认</label>
-      </div>
-      <button onclick="nextSlide()" id="nextButton4" disabled>下一页</button>
-    </div>
-
-    <!-- DENG 页面（原 section10，现为 section12） -->
-    <div class="section" id="section12" style="animation-delay: 3.3s;">
-      <h1>DENG</h1>
-      <p>希君生羽翼,</p>
-      <p>一化北冥鱼。</p>
-      <button onclick="nextSlide()">下一页</button>
-    </div>
-
-    <!-- 图片展示页面（原 section11，现为 section13） -->
-    <div class="section" id="section13" style="animation-delay: 3.6s;">
-      <h1>特别的瞬间</h1>
-      <p>这张很好看！📷摄影师@GAN</p>
-      <p>图片加载失败就刷新或者换网络环境</p>
-      <p>实在不行买台新手机</p>
-      <img src="7444be2a3315b3ec849c7e19b569863.jpg" alt="lbr的照片">
-      <button onclick="nextSlide()">下一页</button>
-    </div>
-
-    <!-- 毕业祝福页面（原 section12，现为 section14） -->
-    <div class="section" id="section14" style="animation-delay: 3.9s;">
-      <h1>祝李老师毕业快乐！</h1>
-      <p>开开心心，未来可期！🎉</p>
-      <p>顺顺利利，学业有成！🎉</p>
-      <button onclick="goToHome()">回到首页</button>
-      <button onclick="nextSlide()">查看制作人员名单</button>
-      <canvas id="fireworksCanvas"></canvas>
-    </div>
-
-    <!-- 制作人员页面（原 section13，现为 section15） -->
-    <div class="section" id="section15" style="animation-delay: 4.2s;">
-      <h1>制作人员</h1>
-      <p>代码设计与开发: GAN</p>
-      <p>动画改进与优化: GAN</p>
-      <p>文字来源: GAN DENG</p>
-      <p>图片来源: GAN DENG</p>
-      <button onclick="prevSlide()">上一页</button>
-      <button onclick="nextSlide()">不要点我</button>
-    </div>
-
-    <!-- 彩蛋页面（原 section14，现为 section16） -->
-    <div class="section" id="section16" style="animation-delay: 4.5s;">
-      <h1>彩蛋</h1>
-      <p>AI小甘对话自训练数据.docx</p>
-      <p>此处将接入小甘自制的AI模型对话0.2.6</p>
-      <button onclick="prevSlide()">上一页</button>
-      <button onclick="goToHome()">回到首页</button>
-    </div>
-
-    <div class="footer">
-      ©2025 运行代码由 GAN 设计与开发
-    </div>
-  </div>
-
-  <script>
-    // 打字效果函数：根据总时长20秒和文本长度计算每个字符延迟，同时自动滚动
-    function typeWriter(text, element, totalDuration = 20000) {
-      element.textContent = "";
-      let i = 0;
-      const delay = totalDuration / text.length;
-      function type() {
-        if (i < text.length) {
-          element.textContent += text.charAt(i);
-          element.scrollTop = element.scrollHeight;
-          i++;
-          setTimeout(type, delay);
-        }
-      }
-      type();
-    }
-
-    // 启动页面：加载自身源代码并打字显示，20秒后移除启动页面
-    window.addEventListener('load', function() {
-      fetch(window.location.href)
-        .then(response => response.text())
-        .then(text => {
-          const splash = document.getElementById('splashScreen');
-          typeWriter(text, splash, 20000);
-        })
-        .catch(err => {
-          document.getElementById('splashScreen').textContent = "加载源代码失败：" + err;
-        });
-      setTimeout(() => {
-        const splash = document.getElementById('splashScreen');
-        if (splash) splash.remove();
-      }, 20000);
-    });
-
-    let currentSection = 1;
-    const totalSections = 16; // 更新后的总页数
-
-    function showSection(sectionNumber) {
-      const sections = document.querySelectorAll('.section');
-      sections.forEach(section => {
-        section.classList.remove('show');
-        section.style.display = "none";
-      });
-      const current = document.getElementById(`section${sectionNumber}`);
-      if(current){
-        current.style.display = "flex";
-        setTimeout(() => {
-          current.classList.add('show');
-        }, 100);
-      }
-    }
-
-    // 显示初始页面
-    showSection(currentSection);
-    // 启动首页烟花效果
-    startFireworks("fireworksCanvasFirst");
-
-    function nextSlide() {
-      const current = document.getElementById(`section${currentSection}`);
-      current.classList.remove('show');
-      current.classList.add('hide');
-      setTimeout(() => {
-        current.style.display = "none";
-        current.classList.remove('hide');
-        // 当离开输入姓名页面时更新欢迎页面的标题
-        if(currentSection === 2) {
-           let name = document.getElementById("nameInput").value;
-           if(name.trim() === "") {
-             alert("请输入名字！");
-             current.style.display = "flex";
-             current.classList.add('show');
-             return;
-           }
-           document.getElementById("welcomeTitle").textContent = "欢迎你，" + name + "!";
-        }
-        currentSection++;
-        if(currentSection > totalSections) return;
-        const next = document.getElementById(`section${currentSection}`);
-        next.style.display = "flex";
-        setTimeout(() => {
-          next.classList.add('show');
-          // 根据当前页面调用不同功能（已更新页面序号）
-          if (currentSection === 4) { // 定位页面
-            startGeolocation();
-          }
-          if (currentSection === 5) { // 摇一摇手机页面
-            startSensor();
-          }
-          if (currentSection === 6) { // 拍照页面
-            startCamera();
-          }
-          if (currentSection === 7) { // 小游戏页面
-            startGame();
-          }
-          if (currentSection === 14) { // 毕业祝福页面
-            startFireworks();
-          }
-        }, 50);
-        window.scrollTo(0, 0);
-      }, 400);
-    }
-
-    function prevSlide() {
-      const current = document.getElementById(`section${currentSection}`);
-      current.classList.remove('show');
-      current.classList.add('hide');
-      setTimeout(() => {
-        current.style.display = "none";
-        current.classList.remove('hide');
-        currentSection--;
-        const prev = document.getElementById(`section${currentSection}`);
-        prev.style.display = "flex";
-        setTimeout(() => {
-          prev.classList.add('show');
-        }, 50);
-        window.scrollTo(0, 0);
-      }, 400);
-    }
-
-    function goToHome() {
-      const current = document.getElementById(`section${currentSection}`);
-      current.classList.remove('show');
-      current.classList.add('hide');
-      setTimeout(() => {
-        current.style.display = "none";
-        current.classList.remove('hide');
-        currentSection = 1;
-        const home = document.getElementById(`section${currentSection}`);
-        home.style.display = "flex";
-        setTimeout(() => {
-          home.classList.add('show');
-        }, 50);
-        window.scrollTo(0, 0);
-        startFireworks("fireworksCanvasFirst");
-      }, 400);
-    }
-
-    function enableNextButton(checkboxId, buttonId) {
-      document.getElementById(buttonId).disabled = !document.getElementById(checkboxId).checked;
-    }
-
-    function validatePassword() {
-      document.getElementById("nextButton2").disabled = document.getElementById("passwordInput").value !== "04240417";
-    }
-
-    function handleEnter(event) {
-      if (event.key === "Enter") validatePassword();
-    }
-
-    // 新增：检查姓名输入是否为空，更新按钮状态
-    function checkNameInput() {
-      const name = document.getElementById("nameInput").value;
-      document.getElementById("nameNextButton").disabled = (name.trim() === "");
-    }
-
-    // 小游戏相关代码
-    let gameScore = 0;
-    let gameTime = 25;
-    let gameTimer;
-
-    function startGame() {
-      gameScore = 0;
-      gameTime = 25;
-      document.getElementById("scoreDisplay").innerText = gameScore;
-      document.getElementById("timerDisplay").innerText = "时间剩余: " + gameTime + "秒";
-      document.getElementById("gameButton").disabled = false;
-      document.getElementById("nextButtonGame").style.display = "none";
-      if (gameTimer) clearInterval(gameTimer);
-      gameTimer = setInterval(() => {
-        gameTime--;
-        document.getElementById("timerDisplay").innerText = "时间剩余: " + gameTime + "秒";
-        if (gameTime <= 0) {
-          clearInterval(gameTimer);
-          endGame();
-        }
-      }, 1000);
-    }
-
-    function gameClick() {
-      gameScore++;
-      document.getElementById("scoreDisplay").innerText = gameScore;
-    }
-
-    function endGame() {
-      document.getElementById("gameButton").disabled = true;
-      document.getElementById("nextButtonGame").style.display = "inline-block";
-    }
-
-    // 摄像头调用代码
-    function startCamera() {
-      const video = document.getElementById('video');
-      if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-        navigator.mediaDevices.getUserMedia({ video: true })
-          .then(function(stream) {
-            video.srcObject = stream;
-            video.play();
-          })
-          .catch(function(err) {
-            console.error("调用摄像头失败: ", err);
-          });
-      } else {
-        console.error("浏览器不支持调用摄像头");
-      }
-    }
-
-    function capturePhoto() {
-      const video = document.getElementById('video');
-      const canvas = document.getElementById('photoCanvas');
-      const context = canvas.getContext('2d');
-      canvas.width = video.videoWidth;
-      canvas.height = video.videoHeight;
-      context.drawImage(video, 0, 0, canvas.width, canvas.height);
-      canvas.style.display = "block";
-    }
-
-    // 更新后的传感器互动代码：摇晃手机显示祝福，阈值设为45并请求 iOS 权限
-    function startSensor() {
-      let sensorTriggered = false;
-      function deviceMotionHandler(event) {
-        if (sensorTriggered) return;
-        const acceleration = event.accelerationIncludingGravity;
-        if (!acceleration) return;
-        const totalAcc = Math.sqrt(
-          (acceleration.x || 0) ** 2 +
-          (acceleration.y || 0) ** 2 +
-          (acceleration.z || 0) ** 2
-        );
-        if (totalAcc > 45) {
-          sensorTriggered = true;
-          document.getElementById("blessingText").style.display = "block";
-          document.getElementById("nextButtonSensor").disabled = false;
-          window.removeEventListener('devicemotion', deviceMotionHandler);
-        }
-      }
-      if (typeof DeviceMotionEvent !== 'undefined' && typeof DeviceMotionEvent.requestPermission === 'function') {
-        DeviceMotionEvent.requestPermission()
-          .then(response => {
-            if (response === 'granted') {
-              window.addEventListener('devicemotion', deviceMotionHandler, false);
-            } else {
-              console.log("设备传感器权限被拒绝");
-            }
-          })
-          .catch(console.error);
-      } else {
-        window.addEventListener('devicemotion', deviceMotionHandler, false);
-      }
-    }
-
-    // 定位页面：调用手机定位并显示 Google 地图
-    function startGeolocation() {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(position) {
-          var lat = position.coords.latitude;
-          var lng = position.coords.longitude;
-          document.getElementById("locationStatus").innerText = "当前位置：" + lat.toFixed(6) + ", " + lng.toFixed(6);
-          var mapDiv = document.getElementById("map");
-          mapDiv.style.display = "block";
-          mapDiv.innerHTML = '<iframe width="100%" height="400" frameborder="0" style="border:0; position:relative; z-index:1;" src="https://maps.google.com/maps?q=' + lat + ',' + lng + '&z=15&output=embed" allowfullscreen></iframe>';
-        }, function(error) {
-          document.getElementById("locationStatus").innerText = "获取位置失败：" + error.message;
-        });
-      } else {
-        document.getElementById("locationStatus").innerText = "浏览器不支持定位";
-      }
-    }
-
-    function startFireworks(canvasId = "fireworksCanvas") {
-      const canvas = document.getElementById(canvasId);
-      if (!canvas) {
-        console.error("Canvas 元素未找到: " + canvasId);
-        return;
-      }
-      const ctx = canvas.getContext("2d");
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-
-      const particles = [];
-      function Particle(x, y, color) {
-        this.x = x;
-        this.y = y;
-        this.color = color;
-        this.size = Math.random() * 3 + 1;
-        this.speedX = Math.random() * 4 - 2;
-        this.speedY = Math.random() * 4 - 2;
-        this.opacity = 1;
-      }
-      Particle.prototype.update = function() {
-        this.x += this.speedX;
-        this.y += this.speedY;
-        this.opacity -= 0.02;
-      };
-      Particle.prototype.draw = function() {
-        ctx.globalAlpha = this.opacity;
-        ctx.fillStyle = this.color;
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fill();
-      };
-
-      function createFirework(x, y) {
-        const colors = ["red", "yellow", "blue", "green", "purple", "orange"];
-        for (let i = 0; i < 50; i++) {
-          particles.push(new Particle(x, y, colors[Math.floor(Math.random() * colors.length)]));
-        }
-      }
-
-      function animate() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        for (let i = 0; i < particles.length; i++) {
-          particles[i].update();
-          particles[i].draw();
-          if (particles[i].opacity <= 0) {
-            particles.splice(i, 1);
-            i--;
-          }
-        }
-        requestAnimationFrame(animate);
-      }
-
-      setInterval(() => {
-        createFirework(Math.random() * canvas.width, Math.random() * canvas.height);
-      }, 500);
-
-      animate();
-    }
-  </script>
 </body>
 </html>
