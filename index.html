@@ -1,0 +1,1435 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="甘弦朋的个人主页，聚焦钢琴器乐表现、作曲研究、AI 生成音乐评价与音乐创作项目。">
+  <title data-i18n="page_title">甘弦朋 | 个人主页</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #030916;
+      --bg-soft: #071827;
+      --panel: rgba(8, 23, 41, 0.72);
+      --panel-strong: rgba(8, 28, 52, 0.9);
+      --line: rgba(125, 211, 252, 0.22);
+      --line-strong: rgba(96, 165, 250, 0.5);
+      --text: #eaf6ff;
+      --muted: #9db8cf;
+      --blue: #38bdf8;
+      --blue-deep: #2563eb;
+      --cyan: #67e8f9;
+      --violet: #a78bfa;
+      --emerald: #34d399;
+      --amber: #fbbf24;
+      --shadow: 0 30px 90px rgba(0, 0, 0, 0.48);
+      --radius: 8px;
+      --font: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      overflow-x: hidden;
+      background:
+        radial-gradient(circle at 18% 12%, rgba(56, 189, 248, 0.18), transparent 28rem),
+        radial-gradient(circle at 86% 18%, rgba(37, 99, 235, 0.17), transparent 27rem),
+        radial-gradient(circle at 50% 82%, rgba(103, 232, 249, 0.08), transparent 30rem),
+        linear-gradient(135deg, #030916 0%, #06172a 48%, #020617 100%);
+      color: var(--text);
+      font-family: var(--font);
+      letter-spacing: 0;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -3;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(125, 211, 252, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(125, 211, 252, 0.05) 1px, transparent 1px);
+      background-size: 44px 44px;
+      mask-image: linear-gradient(to bottom, black, transparent 82%);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    select {
+      font: inherit;
+    }
+
+    #particle-canvas {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .shell {
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      border-bottom: 1px solid rgba(125, 211, 252, 0.16);
+      background: rgba(4, 14, 27, 0.76);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+
+    .nav-inner {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+      font-weight: 800;
+      color: #f8fdff;
+    }
+
+    .brand-mark {
+      position: relative;
+      width: 34px;
+      height: 34px;
+      border: 1px solid rgba(103, 232, 249, 0.42);
+      border-radius: var(--radius);
+      background: linear-gradient(135deg, rgba(56, 189, 248, 0.22), rgba(37, 99, 235, 0.32));
+      box-shadow: 0 0 28px rgba(56, 189, 248, 0.26);
+      overflow: hidden;
+    }
+
+    .brand-mark::before,
+    .brand-mark::after {
+      content: "";
+      position: absolute;
+      inset: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      transform: rotate(45deg);
+    }
+
+    .brand-mark::after {
+      inset: 12px;
+      border-color: rgba(52, 211, 153, 0.64);
+      animation: spin-slow 9s linear infinite;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--muted);
+      font-size: 14px;
+      white-space: nowrap;
+    }
+
+    .nav-links a,
+    .language-select {
+      min-height: 38px;
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid transparent;
+      border-radius: var(--radius);
+      padding: 0 12px;
+      transition: border-color 180ms ease, color 180ms ease, background 180ms ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+      border-color: rgba(125, 211, 252, 0.18);
+      background: rgba(125, 211, 252, 0.08);
+    }
+
+    .language-select {
+      color: var(--text);
+      background: rgba(8, 24, 39, 0.86);
+      border-color: rgba(125, 211, 252, 0.24);
+      outline: none;
+      cursor: pointer;
+    }
+
+    .language-select option {
+      color: #0f172a;
+      background: #f8fafc;
+    }
+
+    .hero {
+      position: relative;
+      min-height: min(860px, calc(100svh - 72px));
+      padding: clamp(42px, 7vw, 86px) 0 clamp(36px, 6vw, 68px);
+      display: grid;
+      align-items: center;
+      overflow: hidden;
+      border-bottom: 1px solid rgba(125, 211, 252, 0.12);
+      isolation: isolate;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background:
+        linear-gradient(rgba(125, 211, 252, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(125, 211, 252, 0.035) 1px, transparent 1px);
+      background-size: 34px 34px;
+      mask-image: radial-gradient(circle at 50% 46%, black, transparent 72%);
+      pointer-events: none;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto -10% 0;
+      z-index: 1;
+      height: 210px;
+      background: linear-gradient(to bottom, transparent, var(--bg) 88%);
+      pointer-events: none;
+    }
+
+    .hero-grid {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      min-height: 680px;
+      align-items: end;
+    }
+
+    .hero-content {
+      width: min(760px, 100%);
+      padding-bottom: clamp(12px, 5vw, 56px);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 34px;
+      padding: 0 12px;
+      border: 1px solid rgba(125, 211, 252, 0.22);
+      border-radius: 999px;
+      background: rgba(8, 24, 39, 0.58);
+      color: #b7eaff;
+      font-size: 13px;
+      box-shadow: inset 0 0 26px rgba(56, 189, 248, 0.08);
+    }
+
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--emerald);
+      box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.64);
+      animation: pulse 2.4s ease-out infinite;
+    }
+
+    h1 {
+      max-width: 760px;
+      margin: 16px 0 16px;
+      font-size: clamp(34px, 6vw, 58px);
+      line-height: 1.03;
+      letter-spacing: 0;
+    }
+
+    .particle-name-label {
+      position: absolute;
+      left: clamp(20px, 5vw, 70px);
+      top: clamp(92px, 12vw, 140px);
+      z-index: 2;
+      margin: 0;
+      color: rgba(234, 246, 255, 0.1);
+      font-size: clamp(18px, 3vw, 28px);
+      font-weight: 700;
+      pointer-events: none;
+    }
+
+    .hero-hint {
+      position: absolute;
+      right: clamp(18px, 5vw, 70px);
+      bottom: clamp(108px, 14vw, 154px);
+      z-index: 2;
+      max-width: 250px;
+      margin: 0;
+      padding: 14px 16px;
+      border: 1px solid rgba(125, 211, 252, 0.2);
+      border-radius: var(--radius);
+      color: #b7eaff;
+      background: rgba(3, 9, 22, 0.42);
+      backdrop-filter: blur(14px);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.22);
+      font-size: 13px;
+      line-height: 1.6;
+      pointer-events: none;
+    }
+
+    .gradient-text {
+      background: linear-gradient(100deg, #f8fdff 0%, #7dd3fc 45%, #a78bfa 86%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      filter: drop-shadow(0 12px 36px rgba(56, 189, 248, 0.16));
+    }
+
+    .hero-copy {
+      max-width: 720px;
+      color: #b8cfe2;
+      font-size: clamp(17px, 2vw, 20px);
+      line-height: 1.8;
+      margin: 0;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    .btn {
+      position: relative;
+      min-height: 46px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      border: 1px solid rgba(125, 211, 252, 0.32);
+      border-radius: var(--radius);
+      padding: 0 18px;
+      color: var(--text);
+      background: rgba(8, 24, 39, 0.68);
+      overflow: hidden;
+      transition: transform 180ms ease, border-color 180ms ease, background 180ms ease, box-shadow 180ms ease;
+    }
+
+    .btn.primary {
+      border-color: rgba(103, 232, 249, 0.5);
+      background: linear-gradient(135deg, rgba(37, 99, 235, 0.9), rgba(14, 165, 233, 0.84));
+      box-shadow: 0 20px 48px rgba(37, 99, 235, 0.28);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      border-color: rgba(103, 232, 249, 0.7);
+      box-shadow: 0 20px 48px rgba(14, 165, 233, 0.18);
+    }
+
+    .metric-strip {
+      width: min(780px, 100%);
+      margin-top: 26px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .metric {
+      min-height: 76px;
+      border: 1px solid rgba(125, 211, 252, 0.18);
+      border-radius: var(--radius);
+      padding: 14px 15px;
+      background: rgba(2, 6, 23, 0.48);
+      backdrop-filter: blur(12px);
+    }
+
+    .metric b {
+      display: block;
+      font-size: 24px;
+      color: #f8fdff;
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+
+    .metric span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.4;
+    }
+
+    main {
+      padding: 24px 0 88px;
+    }
+
+    .section {
+      padding: 82px 0 0;
+      scroll-margin-top: 88px;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 22px;
+      align-items: end;
+      margin-bottom: 24px;
+    }
+
+    .kicker {
+      color: var(--cyan);
+      font-size: 12px;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      margin: 7px 0 0;
+      font-size: clamp(28px, 4vw, 44px);
+      line-height: 1.08;
+      letter-spacing: 0;
+    }
+
+    .section-note {
+      max-width: 410px;
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 14px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .card,
+    .timeline-item,
+    .project-card,
+    .contact-panel {
+      position: relative;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--panel);
+      box-shadow: 0 18px 44px rgba(0, 0, 0, 0.22);
+      overflow: hidden;
+    }
+
+    .card::before,
+    .timeline-item::before,
+    .project-card::before,
+    .contact-panel::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(103, 232, 249, 0.12), transparent 40%, rgba(167, 139, 250, 0.08));
+      opacity: 0;
+      transition: opacity 220ms ease;
+      pointer-events: none;
+    }
+
+    .card:hover::before,
+    .timeline-item:hover::before,
+    .project-card:hover::before,
+    .contact-panel:hover::before {
+      opacity: 1;
+    }
+
+    .card {
+      min-height: 255px;
+      padding: 26px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 220ms ease, border-color 220ms ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      border-color: var(--line-strong);
+    }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      align-items: start;
+      margin-bottom: 28px;
+    }
+
+    .icon-tile {
+      width: 46px;
+      height: 46px;
+      border: 1px solid rgba(125, 211, 252, 0.25);
+      border-radius: var(--radius);
+      display: grid;
+      place-items: center;
+      color: var(--cyan);
+      background: rgba(56, 189, 248, 0.1);
+    }
+
+    .icon-tile svg {
+      width: 24px;
+      height: 24px;
+      stroke: currentColor;
+    }
+
+    .tag {
+      min-height: 28px;
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid rgba(125, 211, 252, 0.19);
+      border-radius: 999px;
+      padding: 0 10px;
+      color: #b7eaff;
+      background: rgba(56, 189, 248, 0.08);
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    h3 {
+      margin: 0;
+      color: #f8fdff;
+      font-size: 20px;
+      line-height: 1.35;
+      letter-spacing: 0;
+    }
+
+    .card p,
+    .timeline-item p,
+    .project-card p {
+      margin: 12px 0 0;
+      color: var(--muted);
+      line-height: 1.72;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 14px;
+    }
+
+    .timeline-item {
+      padding: 24px;
+      display: grid;
+      grid-template-columns: 160px minmax(0, 1fr);
+      gap: 22px;
+      align-items: start;
+      transition: transform 220ms ease, border-color 220ms ease;
+    }
+
+    .timeline-item:hover {
+      transform: translateX(4px);
+      border-color: var(--line-strong);
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      width: fit-content;
+      min-height: 30px;
+      padding: 0 11px;
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 999px;
+      color: #b7eaff;
+      background: rgba(56, 189, 248, 0.09);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .status.emerald {
+      border-color: rgba(52, 211, 153, 0.34);
+      color: #b6f6da;
+      background: rgba(52, 211, 153, 0.09);
+    }
+
+    .projects {
+      display: grid;
+      gap: 14px;
+    }
+
+    .project-card {
+      min-height: 170px;
+      display: grid;
+      grid-template-columns: 88px minmax(0, 1fr) auto;
+      gap: 22px;
+      align-items: center;
+      padding: 22px;
+      transition: transform 220ms ease, border-color 220ms ease;
+    }
+
+    .project-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--line-strong);
+    }
+
+    .album-mark {
+      width: 88px;
+      aspect-ratio: 1;
+      border-radius: var(--radius);
+      border: 1px solid rgba(125, 211, 252, 0.24);
+      background:
+        radial-gradient(circle at 40% 42%, rgba(248, 250, 252, 0.16) 0 9%, transparent 10%),
+        conic-gradient(from 40deg, rgba(56, 189, 248, 0.9), rgba(167, 139, 250, 0.72), rgba(52, 211, 153, 0.62), rgba(56, 189, 248, 0.9));
+      box-shadow: inset 0 0 0 18px rgba(2, 6, 23, 0.36), 0 12px 34px rgba(37, 99, 235, 0.22);
+      animation: spin-slow 18s linear infinite;
+    }
+
+    .project-card h3 {
+      font-size: 22px;
+    }
+
+    .quote {
+      color: #c9edff;
+      font-style: italic;
+    }
+
+    .listen {
+      min-width: 106px;
+      min-height: 42px;
+      border: 1px solid rgba(125, 211, 252, 0.24);
+      border-radius: var(--radius);
+      color: rgba(234, 246, 255, 0.62);
+      background: rgba(148, 163, 184, 0.08);
+      cursor: not-allowed;
+    }
+
+    .more-wrap {
+      display: flex;
+      justify-content: center;
+      margin-top: 18px;
+    }
+
+    .hidden-project {
+      display: none;
+    }
+
+    .hidden-project.is-visible {
+      display: grid;
+      animation: reveal 420ms ease both;
+    }
+
+    .contact-panel {
+      padding: clamp(26px, 5vw, 46px);
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 26px;
+      align-items: center;
+      background: linear-gradient(135deg, rgba(12, 31, 54, 0.9), rgba(6, 17, 31, 0.76));
+    }
+
+    .contact-panel p {
+      margin: 12px 0 0;
+      max-width: 650px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    footer {
+      padding: 34px 0 46px;
+      color: #86a4bb;
+      text-align: center;
+      border-top: 1px solid rgba(125, 211, 252, 0.12);
+      background: rgba(2, 6, 23, 0.32);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 700ms ease, transform 700ms ease;
+    }
+
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.64); }
+      70% { box-shadow: 0 0 0 12px rgba(52, 211, 153, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0); }
+    }
+
+    @keyframes wave {
+      0%, 100% { height: 26px; }
+      50% { height: 96px; }
+    }
+
+    @keyframes scan {
+      0%, 100% { transform: translateX(-72%); opacity: 0; }
+      42%, 58% { opacity: 1; }
+      50% { transform: translateX(72%); }
+    }
+
+    @keyframes spin-slow {
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes reveal {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 900px) {
+      .shell {
+        width: min(100% - 28px, 680px);
+      }
+
+      .nav-inner {
+        min-height: auto;
+        padding: 12px 0;
+        align-items: start;
+        flex-direction: column;
+      }
+
+      .nav-links {
+        width: 100%;
+        overflow-x: auto;
+        padding-bottom: 4px;
+      }
+
+      .hero {
+        min-height: auto;
+      }
+
+        .cards,
+        .contact-panel {
+          grid-template-columns: 1fr;
+        }
+
+      .hero-grid {
+        min-height: 620px;
+      }
+
+      .metric-strip {
+        grid-template-columns: 1fr;
+      }
+
+      .metric {
+        min-height: 68px;
+        padding: 12px 14px;
+      }
+
+      .metric b {
+        font-size: 20px;
+        margin-bottom: 6px;
+      }
+
+      .section-head,
+      .timeline-item,
+      .project-card {
+        display: grid;
+        grid-template-columns: 1fr;
+      }
+
+      .project-card {
+        gap: 16px;
+      }
+
+      .listen {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .nav-links a {
+        padding: 0 9px;
+      }
+
+      h1 {
+        font-size: clamp(42px, 15vw, 62px);
+      }
+
+      .hero-actions {
+        display: grid;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .hero {
+        min-height: 740px;
+      }
+
+      .hero-grid {
+        min-height: 650px;
+      }
+
+      .particle-name-label,
+      .hero-hint {
+        display: none;
+      }
+
+      .card,
+      .timeline-item,
+      .project-card {
+        padding: 20px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 1ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 1ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="shell nav-inner">
+      <a class="brand" href="#top" aria-label="Gan Xianpeng">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span data-i18n="nav_name">甘弦朋</span>
+      </a>
+      <div class="nav-links" aria-label="Primary navigation">
+        <a href="#about" data-i18n="nav_about">关于我</a>
+        <a href="#research" data-i18n="nav_research">研究</a>
+        <a href="#publications" data-i18n="nav_publications">论文</a>
+        <a href="#projects" data-i18n="nav_projects">项目</a>
+        <a href="#contact" data-i18n="nav_contact">联系</a>
+        <select id="lang-switch" class="language-select" aria-label="Language">
+          <option value="zh">中文</option>
+          <option value="en">English</option>
+          <option value="ja">日本語</option>
+        </select>
+      </div>
+    </div>
+  </nav>
+
+  <header id="top" class="hero">
+    <canvas id="particle-canvas" aria-hidden="true"></canvas>
+    <p class="particle-name-label">GAN XIANPENG</p>
+    <p class="hero-hint" data-i18n="hero_hint">移动鼠标穿过姓名粒子，让星群聚散后重新成像。</p>
+    <div class="shell hero-grid">
+      <div class="hero-content reveal">
+        <span class="eyebrow"><span class="pulse-dot" aria-hidden="true"></span><span data-i18n="hero_eyebrow">Piano Performance · Composition · AI Music</span></span>
+        <h1><span class="gradient-text" data-i18n="hero_title">以音乐研究连接演奏、创作与智能生成</span></h1>
+        <p class="hero-copy" data-i18n="hero_desc">目前专注于乐器表现（钢琴）的学科研究。我热衷于探索如何利用深度学习技术来理解和创造艺术。</p>
+        <div class="hero-actions">
+          <a class="btn primary" href="#research" data-i18n="btn_explore">进入研究</a>
+          <a class="btn" href="mailto:gan1020097573@gmail.com">gan1020097573@gmail.com</a>
+        </div>
+        <div class="metric-strip">
+          <div class="metric">
+            <b data-i18n="metric_1_value">Piano</b>
+            <span data-i18n="metric_1_label">器乐表现研究</span>
+          </div>
+          <div class="metric">
+            <b data-i18n="metric_2_value">AI</b>
+            <span data-i18n="metric_2_label">生成音乐评价</span>
+          </div>
+          <div class="metric">
+            <b data-i18n="metric_3_value">Works</b>
+            <span data-i18n="metric_3_label">作曲与编曲项目</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section id="about" class="section">
+      <div class="shell section-head reveal">
+        <div>
+          <div class="kicker" data-i18n="about_kicker">About</div>
+          <h2 data-i18n="about_title">在演奏、文本与算法之间建立音乐理解</h2>
+        </div>
+        <p class="section-note" data-i18n="about_note">以钢琴演奏研究为核心，同时关注作曲技法、乐谱文献与深度学习在音乐生成和评价中的可能性。</p>
+      </div>
+    </section>
+
+    <section id="research" class="section">
+      <div class="shell">
+        <div class="section-head reveal">
+          <div>
+            <div class="kicker" data-i18n="research_kicker">Research</div>
+            <h2 data-i18n="research_title">研究兴趣</h2>
+          </div>
+          <p class="section-note" data-i18n="research_note">从音乐诠释、结构逻辑到技术生成，把艺术经验转化为可被分析、比较和延展的研究对象。</p>
+        </div>
+
+        <div class="cards">
+          <article class="card reveal">
+            <div>
+              <div class="card-top">
+                <div class="icon-tile" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9 18V5l11-2v13"></path>
+                    <circle cx="6" cy="18" r="3"></circle>
+                    <circle cx="17" cy="16" r="3"></circle>
+                  </svg>
+                </div>
+                <span class="tag" data-i18n="res1_tag">Performance</span>
+              </div>
+              <h3 data-i18n="res1_title">器乐表现（钢琴）研究</h3>
+              <p data-i18n="res1_desc">艺术实践与学术研究深度结合，致力于钢琴演奏艺术的精进，并从学术视角探索音乐诠释的理论逻辑与创新边界。</p>
+            </div>
+          </article>
+
+          <article class="card reveal">
+            <div>
+              <div class="card-top">
+                <div class="icon-tile" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 19.5V5a2 2 0 0 1 2-2h12"></path>
+                    <path d="M20 22H6a2 2 0 0 1 0-4h14V2"></path>
+                    <path d="M8 7h7"></path>
+                    <path d="M8 11h5"></path>
+                  </svg>
+                </div>
+                <span class="tag" data-i18n="res2_tag">Composition</span>
+              </div>
+              <h3 data-i18n="res2_title">作曲（乐书）研究</h3>
+              <p data-i18n="res2_desc">立足于作曲技法与乐谱文献，研究音乐结构的内在逻辑及其在当代技术环境下的生成机制。</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="publications" class="section">
+      <div class="shell">
+        <div class="section-head reveal">
+          <div>
+            <div class="kicker" data-i18n="pub_kicker">Publications</div>
+            <h2 data-i18n="pub_title">近期论文</h2>
+          </div>
+          <p class="section-note" data-i18n="pub_note">围绕 AI 生成音乐评价、钢琴作品分析与音乐文本诠释展开。</p>
+        </div>
+
+        <div class="timeline">
+          <article class="timeline-item reveal">
+            <div><span class="status" data-i18n="pub_status">审查中</span></div>
+            <div>
+              <h3>Invalid Noise Ratio: An Artifact-Aware Evaluation Metric for AI-Generated Chiptune Music</h3>
+              <p data-i18n="pub_desc">无效噪声比：一种面向 AI 生成芯片音乐的伪影感知评价指标。</p>
+            </div>
+          </article>
+
+          <article class="timeline-item reveal">
+            <div><span class="status emerald" data-i18n="pub2_status">已发表（校内）</span></div>
+            <div>
+              <h3>“Public Glory” and “Private Monologue”: Analysis and Interpretation of Two Piano Works by Mikhail Ivanovich Glinka</h3>
+              <p data-i18n="pub2_desc">「公的荣耀」与「私的独白」：米哈伊尔·伊万诺维奇·格林卡的二首钢琴作品分析与解读。</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects" class="section">
+      <div class="shell">
+        <div class="section-head reveal">
+          <div>
+            <div class="kicker" data-i18n="projects_kicker">Projects</div>
+            <h2 data-i18n="projects_title">近期专案</h2>
+          </div>
+          <p class="section-note" data-i18n="projects_note">以作曲、编曲和制作人身份参与的音乐创作项目。</p>
+        </div>
+
+        <div class="projects">
+          <article class="project-card reveal">
+            <div class="album-mark" aria-hidden="true"></div>
+            <div>
+              <h3 data-i18n="proj1_title">柔情趁年少</h3>
+              <p data-i18n="proj1_roles">作词：张哲凯 | 作曲：甘弦朋 | 编曲：甘弦朋 | 制作人：甘弦朋</p>
+              <p class="quote" data-i18n="proj1_desc">“尽管聚散与成长都是常道”</p>
+            </div>
+            <button class="listen" disabled data-i18n="btn_listen">试听</button>
+          </article>
+
+          <article class="project-card reveal">
+            <div class="album-mark" aria-hidden="true"></div>
+            <div>
+              <h3 data-i18n="proj2_title">呢喃</h3>
+              <p data-i18n="proj2_roles">作词：舒彦童 | 作曲：甘弦朋 | 编曲：甘弦朋 | 制作人：甘弦朋</p>
+              <p class="quote" data-i18n="proj2_desc">“泛黄的相册与漫天的落叶”</p>
+            </div>
+            <button class="listen" disabled data-i18n="btn_listen">试听</button>
+          </article>
+
+          <article id="hidden-project" class="project-card hidden-project">
+            <div class="album-mark" aria-hidden="true"></div>
+            <div>
+              <h3 data-i18n="proj3_title">孤独盆栽</h3>
+              <p data-i18n="proj3_roles">作词：任乔洛 | 作曲：任乔洛 | 编曲：甘弦朋 | 制作人：钟其高</p>
+              <p class="quote" data-i18n="proj3_desc">“困于方寸，向光而生。无人问津，独自盛放。”</p>
+            </div>
+            <button class="listen" disabled data-i18n="btn_listen">试听</button>
+          </article>
+        </div>
+
+        <div class="more-wrap reveal">
+          <button id="show-more-btn" class="btn" type="button" data-i18n="btn_show_more">显示更多</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="section">
+      <div class="shell">
+        <div class="contact-panel reveal">
+          <div>
+            <div class="kicker" data-i18n="contact_kicker">Contact</div>
+            <h2 data-i18n="contact_title">联系</h2>
+            <p data-i18n="contact_note">欢迎围绕钢琴表现研究、作曲、编曲、AI 音乐生成与评价等方向交流。</p>
+          </div>
+          <a class="btn primary" href="mailto:gan1020097573@gmail.com">Email</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="shell" data-i18n="footer_text">© 2026 甘弦朋. 基于 GitHub Pages 构建.</div>
+  </footer>
+
+  <script>
+    const translations = {
+      zh: {
+        page_title: "甘弦朋 | 个人主页",
+        nav_name: "甘弦朋",
+        nav_about: "关于我",
+        nav_research: "研究",
+        nav_publications: "论文",
+        nav_projects: "项目",
+        nav_contact: "联系",
+        hero_eyebrow: "Piano Performance · Composition · AI Music",
+        hero_title: "以音乐研究连接演奏、创作与智能生成",
+        hero_hint: "移动鼠标穿过姓名粒子，让星群聚散后重新成像。",
+        hero_desc: "目前专注于乐器表现（钢琴）的学科研究。我热衷于探索如何利用深度学习技术来理解和创造艺术。",
+        btn_explore: "进入研究",
+        metric_1_value: "Piano",
+        metric_1_label: "器乐表现研究",
+        metric_2_value: "AI",
+        metric_2_label: "生成音乐评价",
+        metric_3_value: "Works",
+        metric_3_label: "作曲与编曲项目",
+        about_kicker: "About",
+        about_title: "在演奏、文本与算法之间建立音乐理解",
+        about_note: "以钢琴演奏研究为核心，同时关注作曲技法、乐谱文献与深度学习在音乐生成和评价中的可能性。",
+        research_kicker: "Research",
+        research_title: "研究兴趣",
+        research_note: "从音乐诠释、结构逻辑到技术生成，把艺术经验转化为可被分析、比较和延展的研究对象。",
+        res1_tag: "Performance",
+        res1_title: "器乐表现（钢琴）研究",
+        res1_desc: "艺术实践与学术研究深度结合，致力于钢琴演奏艺术的精进，并从学术视角探索音乐诠释的理论逻辑与创新边界。",
+        res2_tag: "Composition",
+        res2_title: "作曲（乐书）研究",
+        res2_desc: "立足于作曲技法与乐谱文献，研究音乐结构的内在逻辑及其在当代技术环境下的生成机制。",
+        pub_kicker: "Publications",
+        pub_title: "近期论文",
+        pub_note: "围绕 AI 生成音乐评价、钢琴作品分析与音乐文本诠释展开。",
+        pub_status: "审查中",
+        pub_desc: "无效噪声比：一种面向 AI 生成芯片音乐的伪影感知评价指标。",
+        pub2_status: "已发表（校内）",
+        pub2_desc: "「公的荣耀」与「私的独白」：米哈伊尔·伊万诺维奇·格林卡的二首钢琴作品分析与解读。",
+        projects_kicker: "Projects",
+        projects_title: "近期专案",
+        projects_note: "以作曲、编曲和制作人身份参与的音乐创作项目。",
+        proj1_title: "柔情趁年少",
+        proj1_roles: "作词：张哲凯 | 作曲：甘弦朋 | 编曲：甘弦朋 | 制作人：甘弦朋",
+        proj1_desc: "“尽管聚散与成长都是常道”",
+        proj2_title: "呢喃",
+        proj2_roles: "作词：舒彦童 | 作曲：甘弦朋 | 编曲：甘弦朋 | 制作人：甘弦朋",
+        proj2_desc: "“泛黄的相册与漫天的落叶”",
+        proj3_title: "孤独盆栽",
+        proj3_roles: "作词：任乔洛 | 作曲：任乔洛 | 编曲：甘弦朋 | 制作人：钟其高",
+        proj3_desc: "“困于方寸，向光而生。无人问津，独自盛放。”",
+        btn_listen: "试听",
+        btn_show_more: "显示更多",
+        contact_kicker: "Contact",
+        contact_title: "联系",
+        contact_note: "欢迎围绕钢琴表现研究、作曲、编曲、AI 音乐生成与评价等方向交流。",
+        footer_text: "© 2026 甘弦朋. 基于 GitHub Pages 构建."
+      },
+      en: {
+        page_title: "Gan Xianpeng | Portfolio",
+        nav_name: "Gan Xianpeng",
+        nav_about: "About",
+        nav_research: "Research",
+        nav_publications: "Publications",
+        nav_projects: "Projects",
+        nav_contact: "Contact",
+        hero_eyebrow: "Piano Performance · Composition · AI Music",
+        hero_title: "Connecting performance, composition, and intelligent music generation",
+        hero_hint: "Move your cursor through the name particles and watch the stars scatter, orbit, and return.",
+        hero_desc: "Currently focusing on academic research in instrumental performance, especially piano. I am interested in how deep learning can help us understand and create art.",
+        btn_explore: "Explore Research",
+        metric_1_value: "Piano",
+        metric_1_label: "Instrumental performance research",
+        metric_2_value: "AI",
+        metric_2_label: "Generative music evaluation",
+        metric_3_value: "Works",
+        metric_3_label: "Composition and arrangement projects",
+        about_kicker: "About",
+        about_title: "Building musical understanding across performance, text, and algorithms",
+        about_note: "Centered on piano performance research, with attention to composition techniques, score literature, and deep learning in music generation and evaluation.",
+        research_kicker: "Research",
+        research_title: "Research Interests",
+        research_note: "From musical interpretation and structural logic to technological generation, artistic experience becomes something that can be analyzed, compared, and extended.",
+        res1_tag: "Performance",
+        res1_title: "Instrumental Performance (Piano)",
+        res1_desc: "Combining artistic practice with academic research, dedicated to refining piano performance art and exploring the theoretical logic and innovative boundaries of musical interpretation.",
+        res2_tag: "Composition",
+        res2_title: "Composition (Musical Scores)",
+        res2_desc: "Based on composition techniques and score literature, researching the internal logic of musical structures and their generation mechanisms in contemporary technological environments.",
+        pub_kicker: "Publications",
+        pub_title: "Recent Publications",
+        pub_note: "Focused on AI-generated music evaluation, piano work analysis, and musical text interpretation.",
+        pub_status: "Under Review",
+        pub_desc: "Invalid Noise Ratio: an artifact-aware evaluation metric for AI-generated chiptune music.",
+        pub2_status: "Published (Internal)",
+        pub2_desc: "“Public Glory” and “Private Monologue”: analysis and interpretation of two piano works by Mikhail Ivanovich Glinka.",
+        projects_kicker: "Projects",
+        projects_title: "Recent Projects",
+        projects_note: "Music projects involving composition, arrangement, and production.",
+        proj1_title: "Tenderness while young",
+        proj1_roles: "Lyricist: Zhang Zhekai | Composer: Gan Xianpeng | Arranger: Gan Xianpeng | Producer: Gan Xianpeng",
+        proj1_desc: "“Although gathering, parting, and growing up are the norm”",
+        proj2_title: "Whisper",
+        proj2_roles: "Lyricist: Shu Yantong | Composer: Gan Xianpeng | Arranger: Gan Xianpeng | Producer: Gan Xianpeng",
+        proj2_desc: "“Yellowing photo albums and falling leaves”",
+        proj3_title: "Lonely Potted Plant",
+        proj3_roles: "Lyricist: Ren Qiaoluo | Composer: Ren Qiaoluo | Arranger: Gan Xianpeng | Producer: Zhong Qigao",
+        proj3_desc: "“Trapped in a square inch, growing towards the light, unnoticed and blooming alone.”",
+        btn_listen: "Listen",
+        btn_show_more: "Show More",
+        contact_kicker: "Contact",
+        contact_title: "Contact",
+        contact_note: "Open to conversations around piano performance research, composition, arrangement, AI music generation, and evaluation.",
+        footer_text: "© 2026 Gan Xianpeng. Built with GitHub Pages."
+      },
+      ja: {
+        page_title: "甘弦朋 | 個人ポートフォリオ",
+        nav_name: "甘弦朋",
+        nav_about: "私について",
+        nav_research: "研究",
+        nav_publications: "論文",
+        nav_projects: "プロジェクト",
+        nav_contact: "お問い合わせ",
+        hero_eyebrow: "Piano Performance · Composition · AI Music",
+        hero_title: "演奏、創作、知的音楽生成をつなぐ研究",
+        hero_hint: "名前の粒子にカーソルを重ねると、星群が散り、巡り、再び形を結びます。",
+        hero_desc: "現在、楽器演奏（ピアノ）の学術研究に専念しています。ディープラーニング技術を活用して芸術を理解し、創造することに情熱を注いでいます。",
+        btn_explore: "研究を見る",
+        metric_1_value: "Piano",
+        metric_1_label: "器楽演奏研究",
+        metric_2_value: "AI",
+        metric_2_label: "生成音楽評価",
+        metric_3_value: "Works",
+        metric_3_label: "作曲・編曲プロジェクト",
+        about_kicker: "About",
+        about_title: "演奏、テキスト、アルゴリズムを横断する音楽理解",
+        about_note: "ピアノ演奏研究を中心に、作曲技法、楽譜文献、音楽生成と評価におけるディープラーニングの可能性にも注目しています。",
+        research_kicker: "Research",
+        research_title: "研究の関心",
+        research_note: "音楽解釈、構造論理、技術的生成をつなぎ、芸術経験を分析・比較・拡張可能な研究対象として捉えます。",
+        res1_tag: "Performance",
+        res1_title: "器楽演奏（ピアノ）研究",
+        res1_desc: "芸術的実践と学術研究を深く結びつけ、ピアノ演奏芸術の探求に専念し、学術的な視点から音楽解釈の理論的論理と革新の境界を探求します。",
+        res2_tag: "Composition",
+        res2_title: "作曲（楽譜）研究",
+        res2_desc: "作曲技法と楽譜文献に基づいて、音楽構造の内部論理と現代の技術環境下での生成メカニズムを研究します。",
+        pub_kicker: "Publications",
+        pub_title: "最近の論文",
+        pub_note: "AI 生成音楽の評価、ピアノ作品分析、音楽テキストの解釈を中心に展開しています。",
+        pub_status: "査読中",
+        pub_desc: "無効ノイズ比：AI 生成チップチューン音楽のためのアーティファクトを考慮した評価指標。",
+        pub2_status: "発表済み（学内）",
+        pub2_desc: "「公の栄光」と「私の独白」：ミハイル・イヴァノヴィチ・グリンカの2つのピアノ作品の分析と解釈。",
+        projects_kicker: "Projects",
+        projects_title: "最近のプロジェクト",
+        projects_note: "作曲、編曲、プロデュースとして関わった音楽制作プロジェクト。",
+        proj1_title: "Tenderness while young",
+        proj1_roles: "作詞：張哲凱 | 作曲：甘弦朋 | 編曲：甘弦朋 | プロデューサー：甘弦朋",
+        proj1_desc: "「出会いと別れ、そして成長は常であるとはいえ」",
+        proj2_title: "囁き（呢喃）",
+        proj2_roles: "作詞：舒彦童 | 作曲：甘弦朋 | 編曲：甘弦朋 | プロデューサー：甘弦朋",
+        proj2_desc: "「色褪せたアルバムと空一面の落ち葉」",
+        proj3_title: "孤独な盆栽",
+        proj3_roles: "作詞：任喬洛 | 作曲：任喬洛 | 編曲：甘弦朋 | プロデューサー：鐘其高",
+        proj3_desc: "「小さな空間に囚われ、光に向かって生き、誰にも気付かれず、一人咲き誇る。」",
+        btn_listen: "試聴",
+        btn_show_more: "さらに表示",
+        contact_kicker: "Contact",
+        contact_title: "お問い合わせ",
+        contact_note: "ピアノ演奏研究、作曲、編曲、AI 音楽生成と評価などについての交流を歓迎します。",
+        footer_text: "© 2026 甘弦朋. GitHub Pages で構築."
+      }
+    };
+
+    const languageSelect = document.getElementById("lang-switch");
+
+    function updateLanguage(lang) {
+      const dictionary = translations[lang] || translations.zh;
+      document.querySelectorAll("[data-i18n]").forEach((node) => {
+        const key = node.getAttribute("data-i18n");
+        if (dictionary[key]) {
+          node.textContent = dictionary[key];
+        }
+      });
+      document.documentElement.lang = lang === "zh" ? "zh-CN" : lang;
+      document.title = dictionary.page_title;
+    }
+
+    languageSelect.addEventListener("change", (event) => {
+      updateLanguage(event.target.value);
+    });
+
+    const showMoreButton = document.getElementById("show-more-btn");
+    const hiddenProject = document.getElementById("hidden-project");
+
+    showMoreButton.addEventListener("click", () => {
+      hiddenProject.classList.add("is-visible");
+      hiddenProject.classList.add("reveal");
+      showMoreButton.style.display = "none";
+      requestAnimationFrame(() => hiddenProject.classList.add("is-visible"));
+    });
+
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll(".reveal").forEach((node) => revealObserver.observe(node));
+
+    const canvas = document.getElementById("particle-canvas");
+    const hero = document.querySelector(".hero");
+    const ctx = canvas.getContext("2d");
+    const nameParticles = [];
+    const starParticles = [];
+    let width = 0;
+    let height = 0;
+    let pointer = { x: -9999, y: -9999, active: false };
+    let frame = 0;
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    function setCanvasSize() {
+      const rect = hero.getBoundingClientRect();
+      const pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
+      width = Math.max(320, Math.floor(rect.width));
+      height = Math.max(520, Math.floor(rect.height));
+      canvas.width = Math.floor(width * pixelRatio);
+      canvas.height = Math.floor(height * pixelRatio);
+      canvas.style.width = `${width}px`;
+      canvas.style.height = `${height}px`;
+      ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+      buildStarfield();
+      buildNameParticles();
+    }
+
+    function fitNameFont(context, text, maxWidth) {
+      let fontSize = Math.min(144, Math.max(56, width * 0.13));
+      const family = "Inter, Arial, sans-serif";
+      context.font = `900 ${fontSize}px ${family}`;
+      while (context.measureText(text).width > maxWidth && fontSize > 36) {
+        fontSize -= 4;
+        context.font = `900 ${fontSize}px ${family}`;
+      }
+      return { font: context.font, fontSize };
+    }
+
+    function buildNameParticles() {
+      const offscreen = document.createElement("canvas");
+      const offscreenContext = offscreen.getContext("2d");
+      offscreen.width = width;
+      offscreen.height = height;
+      offscreenContext.clearRect(0, 0, width, height);
+      const name = "Gan Xianpeng";
+      const maxNameWidth = width * (width < 620 ? 0.88 : 0.78);
+      const { fontSize } = fitNameFont(offscreenContext, name, maxNameWidth);
+      const centerY = width < 700 ? height * 0.32 : height * 0.42;
+      offscreenContext.textAlign = "center";
+      offscreenContext.textBaseline = "middle";
+      offscreenContext.shadowColor = "rgba(125, 211, 252, 0.7)";
+      offscreenContext.shadowBlur = 20;
+      offscreenContext.fillStyle = "#ffffff";
+      offscreenContext.fillText(name, width / 2, centerY);
+
+      const image = offscreenContext.getImageData(0, 0, width, height).data;
+      const sampleStep = width < 620 ? 6 : 8;
+      const targets = [];
+      for (let y = 0; y < height; y += sampleStep) {
+        for (let x = 0; x < width; x += sampleStep) {
+          const alpha = image[(y * width + x) * 4 + 3];
+          if (alpha > 80) {
+            targets.push({ x, y, alpha });
+          }
+        }
+      }
+
+      nameParticles.length = 0;
+      const limit = prefersReducedMotion ? Math.min(targets.length, 420) : Math.min(targets.length, width < 620 ? 850 : 1350);
+      const stride = Math.max(1, Math.floor(targets.length / limit));
+      for (let i = 0; i < targets.length && nameParticles.length < limit; i += stride) {
+        const target = targets[i];
+        const fromEdge = Math.random() > 0.5;
+        nameParticles.push({
+          x: fromEdge ? Math.random() * width : width / 2 + (Math.random() - 0.5) * width * 0.45,
+          y: fromEdge ? Math.random() * height : centerY + (Math.random() - 0.5) * fontSize * 2.8,
+          tx: target.x,
+          ty: target.y,
+          vx: (Math.random() - 0.5) * 8,
+          vy: (Math.random() - 0.5) * 8,
+          r: Math.random() * 1.35 + 0.78,
+          phase: Math.random() * Math.PI * 2,
+          tone: Math.random()
+        });
+      }
+    }
+
+    function buildStarfield() {
+      starParticles.length = 0;
+      const count = prefersReducedMotion ? 34 : Math.min(104, Math.max(60, Math.floor(width * height / 9800)));
+      for (let i = 0; i < count; i += 1) {
+        starParticles.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          z: Math.random() * 0.8 + 0.2,
+          vx: (Math.random() - 0.5) * 0.18,
+          vy: (Math.random() - 0.5) * 0.18,
+          r: Math.random() * 1.6 + 0.35,
+          phase: Math.random() * Math.PI * 2
+        });
+      }
+    }
+
+    function drawBackgroundStars() {
+      for (let i = 0; i < starParticles.length; i += 1) {
+        const star = starParticles[i];
+        if (!prefersReducedMotion) {
+          star.x += star.vx * star.z;
+          star.y += star.vy * star.z;
+        }
+        if (star.x < -20) star.x = width + 20;
+        if (star.x > width + 20) star.x = -20;
+        if (star.y < -20) star.y = height + 20;
+        if (star.y > height + 20) star.y = -20;
+
+        const twinkle = 0.38 + Math.sin(frame * 0.018 + star.phase) * 0.18;
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.r * star.z, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(148, 221, 255, ${twinkle})`;
+        ctx.fill();
+
+        for (let j = i + 3; j < starParticles.length; j += 3) {
+          const other = starParticles[j];
+          const distance = Math.hypot(star.x - other.x, star.y - other.y);
+          if (distance < 92) {
+            ctx.beginPath();
+            ctx.moveTo(star.x, star.y);
+            ctx.lineTo(other.x, other.y);
+            ctx.strokeStyle = `rgba(56, 189, 248, ${(1 - distance / 92) * 0.14})`;
+            ctx.lineWidth = 1;
+            ctx.stroke();
+          }
+        }
+      }
+    }
+
+    function drawNameParticles() {
+      ctx.save();
+      ctx.globalCompositeOperation = "lighter";
+      nameParticles.forEach((particle, index) => {
+        const homeX = particle.tx - particle.x;
+        const homeY = particle.ty - particle.y;
+        particle.vx += homeX * (prefersReducedMotion ? 0.08 : 0.021);
+        particle.vy += homeY * (prefersReducedMotion ? 0.08 : 0.021);
+
+        const mouseX = particle.x - pointer.x;
+        const mouseY = particle.y - pointer.y;
+        const distance = Math.hypot(mouseX, mouseY);
+        const radius = width < 620 ? 112 : 156;
+        if (pointer.active && distance < radius && distance > 0.001 && !prefersReducedMotion) {
+          const force = (1 - distance / radius) ** 2;
+          const angle = Math.atan2(mouseY, mouseX);
+          particle.vx += Math.cos(angle) * force * 11;
+          particle.vy += Math.sin(angle) * force * 11;
+          particle.vx += -Math.sin(angle) * force * 3.2;
+          particle.vy += Math.cos(angle) * force * 3.2;
+
+          if (index % 4 === 0) {
+            ctx.beginPath();
+            ctx.moveTo(pointer.x, pointer.y);
+            ctx.lineTo(particle.x, particle.y);
+            ctx.strokeStyle = `rgba(103, 232, 249, ${force * 0.1})`;
+            ctx.lineWidth = 1;
+            ctx.stroke();
+          }
+        }
+
+        particle.vx *= prefersReducedMotion ? 0.55 : 0.87;
+        particle.vy *= prefersReducedMotion ? 0.55 : 0.87;
+        particle.x += particle.vx;
+        particle.y += particle.vy;
+
+        const shimmer = 0.72 + Math.sin(frame * 0.035 + particle.phase) * 0.24;
+        const blue = particle.tone > 0.78 ? "167, 139, 250" : index % 7 === 0 ? "103, 232, 249" : "56, 189, 248";
+        if (index % 5 === 0) {
+          ctx.beginPath();
+          ctx.arc(particle.x, particle.y, particle.r * 3.2, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(${blue}, 0.08)`;
+          ctx.fill();
+        }
+        ctx.beginPath();
+        ctx.arc(particle.x, particle.y, particle.r * (0.9 + shimmer * 0.28), 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${blue}, ${shimmer})`;
+        ctx.fill();
+      });
+      ctx.restore();
+    }
+
+    function drawParticleScene() {
+      frame += 1;
+      ctx.clearRect(0, 0, width, height);
+
+      const glow = ctx.createRadialGradient(width / 2, height * 0.42, 20, width / 2, height * 0.42, Math.max(width, height) * 0.58);
+      glow.addColorStop(0, "rgba(37, 99, 235, 0.18)");
+      glow.addColorStop(0.38, "rgba(14, 165, 233, 0.08)");
+      glow.addColorStop(1, "rgba(2, 6, 23, 0)");
+      ctx.fillStyle = glow;
+      ctx.fillRect(0, 0, width, height);
+
+      drawBackgroundStars();
+      drawNameParticles();
+      requestAnimationFrame(drawParticleScene);
+    }
+
+    window.addEventListener("resize", setCanvasSize);
+    window.addEventListener("pointermove", (event) => {
+      const rect = canvas.getBoundingClientRect();
+      pointer = {
+        x: event.clientX - rect.left,
+        y: event.clientY - rect.top,
+        active: event.clientX >= rect.left && event.clientX <= rect.right && event.clientY >= rect.top && event.clientY <= rect.bottom
+      };
+    });
+    window.addEventListener("pointerleave", () => {
+      pointer = { x: -9999, y: -9999, active: false };
+    });
+
+    setCanvasSize();
+    drawParticleScene();
+  </script>
+</body>
+</html>
